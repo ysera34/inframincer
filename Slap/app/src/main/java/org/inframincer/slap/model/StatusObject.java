@@ -29,6 +29,14 @@ public class StatusObject {
     @SerializedName("MosquitoStatus")
     private StatusResponse mStatusResponse;
 
+    public StatusResponse getStatusResponse() {
+        return mStatusResponse;
+    }
+
+    public void setStatusResponse(StatusResponse statusResponse) {
+        mStatusResponse = statusResponse;
+    }
+
     @Override
     public String toString() {
         return "StatusObject{" +

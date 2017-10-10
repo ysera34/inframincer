@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/date_time_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorGray500"
+            android:textSize="15sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:text="@string/stage_of_occurrence"
+            android:textColor="@color/colorGray800"
+            android:textSize="24sp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp">
+
+            <ImageView
+                android:id="@+id/measurement_image_view"
+                android:layout_width="240dp"
+                android:layout_height="150dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/bg_measurement"
+                android:contentDescription="@string/measurement_image"/>
+
+            <ImageView
+                android:id="@+id/needle_image_view"
+                android:layout_width="30dp"
+                android:layout_height="90dp"
+                android:layout_alignBottom="@+id/measurement_image_view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="23dp"
+                android:src="@drawable/needle"
+                android:contentDescription="@string/measurement_needle_image"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/status_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="4dp"
+            android:textColor="@color/colorAmber700"
+            android:textSize="42sp"/>
+
+        <TextView
+            android:id="@+id/status_stage_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="4dp"
+            android:textColor="@color/colorAmber700"
+            android:textSize="42sp"
+            tools:text="2단계 : 관심"/>
+
+        <TextView
+            android:id="@+id/status_stage_message_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="4sp"
+            android:padding="4dp"
+            android:textColor="@color/colorGray800"
+            android:textSize="18sp"
+            tools:text="방충망을 꼼꼼히 살피고, \n정화조의 금이나 틈새를 살펴보세요!"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorGray300"
+            android:paddingBottom="6dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
+            android:text="@string/step_by_step_behavior"
+            android:textColor="@color/colorBlack"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

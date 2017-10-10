@@ -5,4 +5,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="stage_of_occurrence">모기발생단계</string>
+    <string name="step_by_step_behavior">시민 행동 요령</string>
+    <string name="measurement_image">measurement image</string>
+    <string name="measurement_needle_image">measurement needle image</string>
 </resources>

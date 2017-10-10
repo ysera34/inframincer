@@ -72,6 +72,30 @@ public class StatusResponse {
         }
     }
 
+    public Integer getTotalCount() {
+        return mTotalCount;
+    }
+
+    public void setTotalCount(Integer totalCount) {
+        mTotalCount = totalCount;
+    }
+
+    public StatusResult getStatusResult() {
+        return mStatusResult;
+    }
+
+    public void setStatusResult(StatusResult statusResult) {
+        mStatusResult = statusResult;
+    }
+
+    public List<Status> getStatuses() {
+        return mStatuses;
+    }
+
+    public void setStatuses(List<Status> statuses) {
+        mStatuses = statuses;
+    }
+
     @Override
     public String toString() {
         return "StatusResponse{" +
