@@ -1,7 +1,5 @@
 package org.inframincer.lms.model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -33,7 +31,7 @@ public class BlockStorage {
         mNumberOfHorizontals = numberOfHorizontals;
         mNumberOfVerticals = numberOfVerticals;
         mBlocks = new ArrayList<>();
-
+        setBlocks();
     }
 
     public ArrayList<ArrayList<Block>> getBlocks() {
@@ -62,7 +60,7 @@ public class BlockStorage {
         int blockCount = mNumberOfHorizontals * mNumberOfVerticals;
         for (int i = 0; i < blockCount; i++) {
             Block block = new Block();
-            block.setNumber(i);
+//            block.setNumber(i);
             blocks.add(block);
         }
 //        for (Block block1 : blocks) {
@@ -135,14 +133,14 @@ public class BlockStorage {
             }
         }
 
-        for (ArrayList<Block> blocks1 : mBlocks) {
-            for (Block block : blocks1) {
-                if (block.isMine()) {
-                    block.setHintNumber(Integer.MAX_VALUE);
-                }
-                Log.i(TAG, "setBlockHintNumber: block getHintNumber : " + block.getHintNumber());
-            }
-        }
+//        for (ArrayList<Block> blocks1 : mBlocks) {
+//            for (Block block : blocks1) {
+//                if (block.isMine()) {
+//                    block.setHintNumber(Integer.MAX_VALUE);
+//                }
+//                Log.i(TAG, "setBlockHintNumber: block getHintNumber : " + block.getHintNumber());
+//            }
+//        }
     }
 
     public void clearBlocks() {
@@ -173,9 +171,9 @@ public class BlockStorage {
             }
         });
 
-        for (int i = 0; i < uniqueIndices.size(); i++) {
-            Log.i(TAG, "getUniqueIndex: index : " + i + " number : " + uniqueIndices.get(i));
-        }
+//        for (int i = 0; i < uniqueIndices.size(); i++) {
+//            Log.i(TAG, "getUniqueIndex: index : " + i + " number : " + uniqueIndices.get(i));
+//        }
         return uniqueIndices;
     }
 
