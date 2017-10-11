@@ -28,10 +28,18 @@
             android:textColor="@color/colorGray800"
             android:textSize="24sp"/>
 
+        <TextView
+            android:id="@+id/stage_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"
+            android:gravity="center_horizontal"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp">
+            android:layout_marginTop="12dp">
 
             <ImageView
                 android:id="@+id/measurement_image_view"
@@ -62,25 +70,15 @@
             android:textSize="42sp"/>
 
         <TextView
-            android:id="@+id/status_stage_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="4dp"
-            android:textColor="@color/colorAmber700"
-            android:textSize="42sp"
-            tools:text="2단계 : 관심"/>
-
-        <TextView
-            android:id="@+id/status_stage_message_text_view"
+            android:id="@+id/action1_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:lineSpacingExtra="4sp"
             android:padding="4dp"
-            android:textColor="@color/colorGray800"
-            android:textSize="18sp"
-            tools:text="방충망을 꼼꼼히 살피고, \n정화조의 금이나 틈새를 살펴보세요!"/>
+            android:text="\n\n\n\n\n\n\n\n\n\n"
+            android:textColor="@color/colorGray700"
+            android:textSize="18sp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -94,6 +92,60 @@
             android:text="@string/step_by_step_behavior"
             android:textColor="@color/colorBlack"
             android:textSize="14sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="@string/action2_text"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/action2_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="6sp"
+                android:textColor="@color/colorGray700"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:paddingEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="6dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorBlack"
+                android:text="@string/action3_text"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/action3_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="6sp"
+                android:textColor="@color/colorGray700"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

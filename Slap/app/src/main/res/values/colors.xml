@@ -23,6 +23,11 @@
     <color name="colorAmberA400">#FFC400</color>
     <color name="colorAmberA700">#FFAB00</color>
 
+    <color name="colorOrange300">#FFB74D</color>
+    <color name="colorOrange500">#FF9800</color>
+    <color name="colorOrange700">#F57C00</color>
+    <color name="colorOrange900">#E65100</color>
+
     <color name="colorGray50">#FAFAFA</color>
     <color name="colorGray100">#F5F5F5</color>
     <color name="colorGray200">#EEEEEE</color>

@@ -12,7 +12,14 @@ import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.inframincer.slap.R;
+import org.inframincer.slap.model.Action;
 import org.inframincer.slap.model.StatusObject;
 import org.inframincer.slap.rest.ApiClient;
 import org.inframincer.slap.rest.ApiService;
@@ -43,11 +50,15 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+    private DatabaseReference mDatabaseReference;
     private TextView mDateTimeTextView;
-    private TextView mStatusTextView;
     private ImageView mNeedleImageView;
     private RotateAnimation mNeedleRotateAnimation;
-
+    private TextView mStageTextView;
+    private TextView mStatusTextView;
+    private TextView mAction1TextView;
+    private TextView mAction2TextView;
+    private TextView mAction3TextView;
 
     private static final float INITIAL_POSITION = 0.0f;
     private static final float ROTATED_POSITION = 180.0f;
@@ -55,6 +66,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Nullable
@@ -84,31 +96,81 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<StatusObject> call, Response<StatusObject> response) {
                 Log.d(TAG, "onResponse: " + response.body().toString());
-                double value = response.body().getStatusResponse().getStatuses().get(0).getValue();
-                mStatusTextView.setText(String.valueOf(value));
-                mNeedleRotateAnimation = new RotateAnimation(INITIAL_POSITION - 90f,
-                        calculateTheAngle((float) value) - 90f,
-                        RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                        RotateAnimation.RELATIVE_TO_SELF, 0.77389f);
-                mNeedleRotateAnimation.setDuration(500);
-                mNeedleRotateAnimation.setInterpolator(new OvershootInterpolator(3));
-                mNeedleRotateAnimation.setFillAfter(true);
-                mNeedleImageView.postDelayed(new Runnable() {
+                final double value = response.body().getStatusResponse().getStatuses().get(0).getValue();
+
+                mDatabaseReference.child(getLevel((float) value))
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void run() {
-                        mNeedleImageView.startAnimation(mNeedleRotateAnimation);
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        Action action = dataSnapshot.getValue(Action.class);
+                        Log.d(TAG, "onDataChange: action " + action.toString());
+                        updateUI((float) value, action);
                     }
-                }, 1000);
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w(TAG, "onCancelled: ", databaseError.toException());
+                        updateUI(-1f, null);
+                    }
+                });
             }
 
             @Override
             public void onFailure(Call<StatusObject> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.toString());
+                updateUI(-1f, null);
             }
         });
 
         mDateTimeTextView = view.findViewById(R.id.date_time_text_view);
         mDateTimeTextView.setText(getCurrentDateTime());
+        mStageTextView = view.findViewById(R.id.stage_text_view);
+        mAction1TextView = view.findViewById(R.id.action1_text_view);
+        mAction2TextView = view.findViewById(R.id.action2_text_view);
+        mAction3TextView = view.findViewById(R.id.action3_text_view);
+    }
+
+    private void updateUI(float value, Action action) {
+        if (action != null) {
+            int[] stageColorArr = {R.color.colorOrange300, R.color.colorOrange500,
+                    R.color.colorOrange700, R.color.colorOrange900,};
+
+            mNeedleRotateAnimation = new RotateAnimation(INITIAL_POSITION - 90f,
+                    calculateTheAngle(value) - 90f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.5f,
+                    RotateAnimation.RELATIVE_TO_SELF, 0.77389f);
+            mNeedleRotateAnimation.setDuration(500);
+            mNeedleRotateAnimation.setInterpolator(new OvershootInterpolator(3));
+            mNeedleRotateAnimation.setFillAfter(true);
+            mNeedleImageView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mNeedleImageView.startAnimation(mNeedleRotateAnimation);
+                }
+            }, 700);
+
+            mStageTextView.setTextColor(getResources().getColor(stageColorArr[action.stage - 1]));
+            mStageTextView.setText(action.name);
+            mStatusTextView.setTextColor(getResources().getColor(stageColorArr[action.stage - 1]));
+            mStatusTextView.setText(String.valueOf(value));
+            mAction1TextView.setText(action.action1);
+            mAction2TextView.setText(action.action2);
+            mAction3TextView.setText(action.action3);
+        }
+    }
+
+    private String getLevel(float value) {
+        float[] minValueArr = {0.0f, 83.4f, 166.7f, 250.1f, 333.4f, 416.7f,
+                500.1f, 583.4f, 666.7f, 750.1f, 833.4f, 916.7f};
+        int resultIndex = -1;
+        for (int i = 0; i < minValueArr.length; i++) {
+            if (value - minValueArr[i] < 0) {
+                resultIndex = i - 1;
+                break;
+            }
+        }
+        return String.valueOf(resultIndex);
     }
 
     private String getCurrentDateTime() {
