@@ -1,5 +1,6 @@
 
-# Created by https://www.gitignore.io/api/android,androidstudio
+
+# Created by https://www.gitignore.io/api/macos,android,firebase,androidstudio
 
 ### Android ###
 # Built application files
@@ -160,7 +161,37 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
-# End of https://www.gitignore.io/api/android,androidstudio
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+**/google-services.json
+
+### macOS ###
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# End of https://www.gitignore.io/api/macos,android,firebase,androidstudio
 
 # Customized
 Reference

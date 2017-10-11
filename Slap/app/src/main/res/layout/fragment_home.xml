@@ -35,19 +35,18 @@
 
             <ImageView
                 android:id="@+id/measurement_image_view"
-                android:layout_width="240dp"
-                android:layout_height="150dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:src="@drawable/bg_measurement"
                 android:contentDescription="@string/measurement_image"/>
 
             <ImageView
                 android:id="@+id/needle_image_view"
-                android:layout_width="30dp"
-                android:layout_height="90dp"
-                android:layout_alignBottom="@+id/measurement_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="23dp"
+                android:layout_alignParentBottom="true"
                 android:src="@drawable/needle"
                 android:contentDescription="@string/measurement_needle_image"/>
 
@@ -97,5 +96,6 @@
             android:textSize="14sp"/>
 
     </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>
