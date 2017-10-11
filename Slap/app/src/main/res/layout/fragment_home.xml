@@ -33,13 +33,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:gravity="center_horizontal"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="8dp">
 
             <ImageView
                 android:id="@+id/measurement_image_view"
@@ -81,6 +81,7 @@
             android:textSize="18sp"/>
 
         <TextView
+            android:id="@+id/actions_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

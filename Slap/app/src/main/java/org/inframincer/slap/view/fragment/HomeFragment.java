@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -54,9 +56,12 @@ public class HomeFragment extends Fragment {
     private TextView mDateTimeTextView;
     private ImageView mNeedleImageView;
     private RotateAnimation mNeedleRotateAnimation;
+    private Animation mTextInAnimation;
+    private Animation mTextOutAnimation;
     private TextView mStageTextView;
     private TextView mStatusTextView;
     private TextView mAction1TextView;
+    private TextView mActionsTextView;
     private TextView mAction2TextView;
     private TextView mAction3TextView;
 
@@ -67,6 +72,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        mTextInAnimation = AnimationUtils.loadAnimation(getActivity(), android.R.anim.fade_in);
     }
 
     @Nullable
@@ -80,7 +86,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mStatusTextView = view.findViewById(R.id.status_text_view);
         mNeedleImageView = view.findViewById(R.id.needle_image_view);
         mNeedleRotateAnimation = new RotateAnimation(0, -90f,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f,
@@ -89,31 +94,27 @@ public class HomeFragment extends Fragment {
         mNeedleRotateAnimation.setFillAfter(true);
         mNeedleImageView.startAnimation(mNeedleRotateAnimation);
 
+        mDateTimeTextView = view.findViewById(R.id.date_time_text_view);
+        mDateTimeTextView.setText(getCurrentDateTime());
+        mStageTextView = view.findViewById(R.id.stage_text_view);
+        mStatusTextView = view.findViewById(R.id.status_text_view);
+        mAction1TextView = view.findViewById(R.id.action1_text_view);
+        mActionsTextView = view.findViewById(R.id.actions_text_view);
+        mAction2TextView = view.findViewById(R.id.action2_text_view);
+        mAction3TextView = view.findViewById(R.id.action3_text_view);
+        callStatusValue();
+    }
+
+    private void callStatusValue() {
         String apiKey = getString(R.string.api_key);
         ApiService apiService = ApiClient.getRetrofit().create(ApiService.class);
         Call<StatusObject> statusCall = apiService.getStatus(apiKey, 0, 5, getCurrentDate());
         statusCall.enqueue(new Callback<StatusObject>() {
             @Override
             public void onResponse(Call<StatusObject> call, Response<StatusObject> response) {
-                Log.d(TAG, "onResponse: " + response.body().toString());
+//                Log.d(TAG, "onResponse: " + response.body().toString());
                 final double value = response.body().getStatusResponse().getStatuses().get(0).getValue();
-
-                mDatabaseReference.child(getLevel((float) value))
-                        .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        Action action = dataSnapshot.getValue(Action.class);
-                        Log.d(TAG, "onDataChange: action " + action.toString());
-                        updateUI((float) value, action);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w(TAG, "onCancelled: ", databaseError.toException());
-                        updateUI(-1f, null);
-                    }
-                });
+                getAction((float) value);
             }
 
             @Override
@@ -122,16 +123,27 @@ public class HomeFragment extends Fragment {
                 updateUI(-1f, null);
             }
         });
-
-        mDateTimeTextView = view.findViewById(R.id.date_time_text_view);
-        mDateTimeTextView.setText(getCurrentDateTime());
-        mStageTextView = view.findViewById(R.id.stage_text_view);
-        mAction1TextView = view.findViewById(R.id.action1_text_view);
-        mAction2TextView = view.findViewById(R.id.action2_text_view);
-        mAction3TextView = view.findViewById(R.id.action3_text_view);
     }
 
-    private void updateUI(float value, Action action) {
+    private void getAction(final float value) {
+        mDatabaseReference.child(getLevel(value))
+                .addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Action action = dataSnapshot.getValue(Action.class);
+//                        Log.d(TAG, "onDataChange: action " + action.toString());
+                updateUI(value, action);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "onCancelled: ", databaseError.toException());
+                updateUI(-1f, null);
+            }
+        });
+    }
+
+    private void updateUI(final float value, final Action action) {
         if (action != null) {
             int[] stageColorArr = {R.color.colorOrange300, R.color.colorOrange500,
                     R.color.colorOrange700, R.color.colorOrange900,};
@@ -152,11 +164,17 @@ public class HomeFragment extends Fragment {
 
             mStageTextView.setTextColor(getResources().getColor(stageColorArr[action.stage - 1]));
             mStageTextView.setText(action.name);
+            mStageTextView.startAnimation(mTextInAnimation);
             mStatusTextView.setTextColor(getResources().getColor(stageColorArr[action.stage - 1]));
             mStatusTextView.setText(String.valueOf(value));
+            mStatusTextView.startAnimation(mTextInAnimation);
             mAction1TextView.setText(action.action1);
+            mAction1TextView.startAnimation(mTextInAnimation);
             mAction2TextView.setText(action.action2);
+            mAction2TextView.startAnimation(mTextInAnimation);
             mAction3TextView.setText(action.action3);
+        } else {
+            mAction1TextView.setText(R.string.internet_error_message);
         }
     }
 
