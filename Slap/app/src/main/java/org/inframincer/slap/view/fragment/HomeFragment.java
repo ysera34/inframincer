@@ -112,15 +112,18 @@ public class HomeFragment extends Fragment {
         statusCall.enqueue(new Callback<StatusObject>() {
             @Override
             public void onResponse(Call<StatusObject> call, Response<StatusObject> response) {
-//                Log.d(TAG, "onResponse: " + response.body().toString());
-                final double value = response.body().getStatusResponse().getStatuses().get(0).getValue();
-                getAction((float) value);
+                if (response.body().getStatusResponse() != null) {
+                    final double value = response.body().getStatusResponse().getStatuses().get(0).getValue();
+                    getAction((float) value);
+                } else {
+                    updateUI(-1f, null);
+                }
             }
 
             @Override
             public void onFailure(Call<StatusObject> call, Throwable t) {
                 Log.e(TAG, "onFailure: " + t.toString());
-                updateUI(-1f, null);
+                updateUI(-2f, null);
             }
         });
     }
@@ -138,7 +141,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.w(TAG, "onCancelled: ", databaseError.toException());
-                updateUI(-1f, null);
+                updateUI(-3f, null);
             }
         });
     }
@@ -174,7 +177,11 @@ public class HomeFragment extends Fragment {
             mAction2TextView.startAnimation(mTextInAnimation);
             mAction3TextView.setText(action.action3);
         } else {
-            mAction1TextView.setText(R.string.internet_error_message);
+            if (value == -1f) {
+                mAction1TextView.setText(R.string.source_error_message);
+            } else {
+                mAction1TextView.setText(R.string.internet_error_message);
+            }
         }
     }
 

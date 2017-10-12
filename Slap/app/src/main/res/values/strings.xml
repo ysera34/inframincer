@@ -15,4 +15,5 @@
     <string name="action2_text">능동적 행동 요령</string>
     <string name="action3_text">기관 사회 행동 요령</string>
     <string name="internet_error_message">인터넷 요청 중에 문제가 발생하였습니다.\n잠시 후에 다시 해주세요.</string>
+    <string name="source_error_message">현재 공공데이터 정보가 없습니다.\n잠시 후에 다시 해주세요.</string>
 </resources>
