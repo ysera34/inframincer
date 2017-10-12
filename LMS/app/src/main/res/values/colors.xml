@@ -38,6 +38,21 @@
     <color name="colorAmberA400">#FFC400</color>
     <color name="colorAmberA700">#FFAB00</color>
 
+    <color name="colorPink50">#FCE4EC</color>
+    <color name="colorPink100">#F8BBD0</color>
+    <color name="colorPink200">#F48FB1</color>
+    <color name="colorPink300">#F06292</color>
+    <color name="colorPink400">#EC407A</color>
+    <color name="colorPink500">#E91E63</color>
+    <color name="colorPink600">#D81B60</color>
+    <color name="colorPink700">#C2185B</color>
+    <color name="colorPink800">#AD1457</color>
+    <color name="colorPink900">#880E4F</color>
+    <color name="colorPinkA100">#FF80AB</color>
+    <color name="colorPinkA200">#FF4081</color>
+    <color name="colorPinkA400">#F50057</color>
+    <color name="colorPinkA700">#C51162</color>
+
     <color name="colorGray50">#FAFAFA</color>
     <color name="colorGray100">#F5F5F5</color>
     <color name="colorGray200">#EEEEEE</color>

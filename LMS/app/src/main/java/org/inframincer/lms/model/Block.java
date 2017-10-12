@@ -12,9 +12,9 @@ public class Block {
     private int mHintNumber;
     private boolean mIsMine;
     private int[] mHintColorArray = {
-            R.color.colorAmber100, R.color.colorAmber200, R.color.colorAmber300,
-            R.color.colorAmber400, R.color.colorAmber500, R.color.colorAmber600,
-            R.color.colorAmber700, R.color.colorAmber800, R.color.colorAmber900,};
+            R.color.colorPink100, R.color.colorPink200, R.color.colorPink300,
+            R.color.colorPink400, R.color.colorPink500, R.color.colorPink600,
+            R.color.colorPink700, R.color.colorPink800, R.color.colorPink900,};
 
 //    public int getNumber() {
 //        return mNumber;

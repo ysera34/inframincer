@@ -18,15 +18,15 @@ import java.util.ArrayList;
  * Created by yoon on 2017. 10. 11..
  */
 
-public class HomeFragment extends Fragment {
+public class GuideFragment extends Fragment {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
+    private static final String TAG = GuideFragment.class.getSimpleName();
 
-    public static HomeFragment newInstance() {
+    public static GuideFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        HomeFragment fragment = new HomeFragment();
+        GuideFragment fragment = new GuideFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_guide, container, false);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mBlocksLayout = view.findViewById(R.id.blocks_layout);
 
-        mNumberOfMines = 20;
+        mNumberOfMines = 10;
         mNumberOfHorizontals = 10;
         mNumberOfVerticals = 10;
         BlockStorage blockStorage = BlockStorage.getBlockStorage(mNumberOfMines, mNumberOfHorizontals, mNumberOfVerticals);

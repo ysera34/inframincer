@@ -5,4 +5,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="app_title">지뢰찾기</string>
+    <string name="author">윤영철</string>
+    <string name="source_address">https://goo.gl/FzTvk2</string>
+    <string name="tutorial_information">지뢰찾기의 각 사각형에 나타나는 숫자는 자신을 제외한 주변 8개의 사각형에 포함된 지뢰의 개수를 의미합니다.</string>
+    <string name="tutorial_explanation">아래 예시는 사각형 가로 10개, 세로 10개를 가정하였습니다.</string>
+    <string name="nav_guide_title">게임 가이드</string>
+    <string name="nav_practice_title">게임 실행</string>
 </resources>

@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity
         mFragment = mHomeFragmentManager.findFragmentById(R.id.home_container);
         if (mFragment == null) {
             mHomeFragmentManager.beginTransaction()
-                    .add(R.id.home_container, HomeFragment.newInstance())
+                    .add(R.id.home_container, GuideFragment.newInstance())
                     .commit();
         }
     }
@@ -83,21 +83,26 @@ public class HomeActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        mFragment = mHomeFragmentManager.findFragmentById(R.id.home_container);
 
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        switch (item.getItemId()) {
+            case R.id.nav_guide:
+                if ((mFragment != null) && !(mFragment instanceof GuideFragment)) {
+                    mHomeFragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.home_container, GuideFragment.newInstance())
+                            .commit();
+                }
+                break;
+            case R.id.nav_practice:
+                if ((mFragment != null) && !(mFragment instanceof PracticeFragment)) {
+                    mHomeFragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                            .replace(R.id.home_container, PracticeFragment.newInstance())
+                            .commit();
+                }
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
