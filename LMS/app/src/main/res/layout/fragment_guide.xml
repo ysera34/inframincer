@@ -14,38 +14,38 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="12dp"
             android:paddingBottom="12dp"
-            android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:textSize="18sp"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:text="@string/nav_guide_title"
             android:textColor="@color/colorGray900"
-            android:text="@string/nav_guide_title"/>
+            android:textSize="18sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
             android:lineSpacingExtra="4dp"
-            android:textSize="16sp"
+            android:paddingBottom="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:text="@string/tutorial_information"
             android:textColor="@color/colorGray800"
-            android:text="@string/tutorial_information"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:lineSpacingExtra="4dp"
             android:layout_marginBottom="8dp"
-            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"
+            android:paddingBottom="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:text="@string/tutorial_explanation"
             android:textColor="@color/colorGray600"
-            android:text="@string/tutorial_explanation"/>
+            android:textSize="14sp"/>
 
         <LinearLayout
             android:id="@+id/blocks_layout"

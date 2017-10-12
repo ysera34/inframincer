@@ -11,6 +11,20 @@
     <string name="source_address">https://goo.gl/FzTvk2</string>
     <string name="tutorial_information">지뢰찾기의 각 사각형에 나타나는 숫자는 자신을 제외한 주변 8개의 사각형에 포함된 지뢰의 개수를 의미합니다.</string>
     <string name="tutorial_explanation">아래 예시는 사각형 가로 10개, 세로 10개를 가정하였습니다.</string>
-    <string name="nav_guide_title">게임 가이드</string>
-    <string name="nav_practice_title">게임 실행</string>
+    <string name="nav_guide_title">가이드</string>
+    <string name="nav_practice_title">시작하기</string>
+    <string name="hint_number_of_horizontals">가로블럭 수</string>
+    <string name="hint_number_of_verticals">세로블럭 수</string>
+    <string name="hint_number_of_mines">지뢰 수</string>
+    <string name="button_practice_quick_start">빠른 게임 시작하기</string>
+    <string name="button_practice_custom_start">직접 입력 게임 시작하기</string>
+    <string name="text_quick_practice">빠른 시작</string>
+    <string name="radio_text_quick_beginning">초급 : 가로 5개, 세로 5개, 지뢰 10개</string>
+    <string name="radio_text_quick_intermediate">중급 : 가로 7개, 세로 7개, 지뢰 20개</string>
+    <string name="radio_text_quick_advanced">고급 : 가로 10개, 세로 10개, 지뢰 35개</string>
+    <string name="text_custom_practice">직접 입력하기</string>
+
+    <string name="error_message_text_empty">숫자를 입력해주세요</string>
+    <string name="error_message_number_pattern">숫자 형식이 아닙니다. 숫자를 입력해주세요.</string>
+
 </resources>
