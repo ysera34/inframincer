@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import org.inframincer.lms.R;
@@ -15,7 +16,7 @@ import org.inframincer.lms.model.Block;
  * Created by yoon on 2017. 10. 12..
  */
 
-public class BlockView extends AppCompatTextView {
+public class BlockView extends AppCompatTextView implements View.OnClickListener {
 
     private BlockView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -28,16 +29,22 @@ public class BlockView extends AppCompatTextView {
     }
 
     private Block mBlock;
+    private boolean mIsGuide;
 
     private void initializeView() {
+
         setGravity(Gravity.CENTER);
-        if (mBlock.isMine()) {
-            setBackgroundResource(R.mipmap.ic_launcher);
+        if (mIsGuide) {
+            setBackgroundResource(R.drawable.bg_selector_block);
+            setOnClickListener(this);
         } else {
-            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-            setTextColor(getResources().getColor(mBlock.getHintColor()));
-            setText(String.valueOf(mBlock.getHintNumber()));
+            showBlock();
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        showBlock();
     }
 
     public void setViewSize(int viewSize) {
@@ -45,5 +52,16 @@ public class BlockView extends AppCompatTextView {
         params.width = viewSize;
         params.height = viewSize;
         setLayoutParams(params);
+    }
+
+    private void showBlock() {
+        if (mBlock.isMine()) {
+            setBackgroundResource(R.drawable.ic_mine_24dp);
+        } else {
+            setBackground(null);
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            setTextColor(getResources().getColor(mBlock.getHintColor()));
+            setText(String.valueOf(mBlock.getHintNumber()));
+        }
     }
 }

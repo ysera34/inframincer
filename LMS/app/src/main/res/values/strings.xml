@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LMS</string>
+    <string name="app_name">지뢰찾기</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -10,9 +10,11 @@
     <string name="author">윤영철</string>
     <string name="source_address">https://goo.gl/FzTvk2</string>
     <string name="tutorial_information">지뢰찾기의 각 사각형에 나타나는 숫자는 자신을 제외한 주변 8개의 사각형에 포함된 지뢰의 개수를 의미합니다.</string>
-    <string name="tutorial_explanation">아래 예시는 사각형 가로 10개, 세로 10개를 가정하였습니다.</string>
+    <string name="tutorial_explanation">아래 예시는 사각형 가로 세로 블럭 10개, 지뢰 10개를 가정하였습니다.</string>
     <string name="nav_guide_title">가이드</string>
     <string name="nav_practice_title">시작하기</string>
+    <string name="fragment_guide_title">게임 가이드</string>
+    <string name="fragment_practice_title">게임 구성하기</string>
     <string name="hint_number_of_horizontals">가로블럭 수</string>
     <string name="hint_number_of_verticals">세로블럭 수</string>
     <string name="hint_number_of_mines">지뢰 수</string>
@@ -24,7 +26,15 @@
     <string name="radio_text_quick_advanced">고급 : 가로 10개, 세로 10개, 지뢰 35개</string>
     <string name="text_custom_practice">직접 입력하기</string>
 
-    <string name="error_message_text_empty">숫자를 입력해주세요</string>
+    <string name="error_message_text_empty">숫자를 입력해주세요.</string>
+    <string name="error_message_too_many_number">블럭 수가 너무 많아요.(5~15개가 적당해요!)</string>
+    <string name="error_message_too_less_number">블럭 수가 너무 적어요.(5~15개가 적당해요!)</string>
     <string name="error_message_number_pattern">숫자 형식이 아닙니다. 숫자를 입력해주세요.</string>
+    <string name="error_message_no_setting_horizontals">가로 블럭 수가 적당하지 않아요.</string>
+    <string name="error_message_no_setting_verticals">세로 블럭 수가 적당하지 않아요.</string>
+    <string name="error_message_too_many_mines">블럭 수보다 지뢰 수가 더 많아요.</string>
+    <string name="practice_start_title">게임을 시작하시겠어요?</string>
+    <string name="practice_start_message">가로 %1$d개, 세로 %2$d개, 지뢰 %3$d개 입니다.</string>
+    <string name="text_custom_practice_explanation">(가로, 세로 블럭은 5~15개가 적당하고, 지뢰의 수는 가로세로의 곱보다 클 수 없습니다.)</string>
 
 </resources>

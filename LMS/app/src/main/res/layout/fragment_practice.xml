@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/practice_nested_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,11 +15,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
+            android:paddingBottom="8dp"
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
             android:paddingTop="12dp"
-            android:text="@string/nav_practice_title"
+            android:text="@string/fragment_practice_title"
             android:textColor="@color/colorGray900"
             android:textSize="18sp"/>
 
@@ -45,12 +46,14 @@
                 android:textSize="16sp"/>
 
             <RadioGroup
+                android:id="@+id/quick_start_radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="4dp">
 
                 <RadioButton
+                    android:id="@+id/quick_beginning_radio_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/radio_text_quick_beginning"
@@ -58,6 +61,7 @@
                     android:textSize="14sp"/>
 
                 <RadioButton
+                    android:id="@+id/quick_intermediate_radio_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/radio_text_quick_intermediate"
@@ -65,6 +69,7 @@
                     android:textSize="14sp"/>
 
                 <RadioButton
+                    android:id="@+id/quick_advanced_radio_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/radio_text_quick_advanced"
@@ -78,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorAccent"
+                android:background="@drawable/bg_selector_start_button"
                 android:text="@string/button_practice_quick_start"
                 android:textColor="@color/colorWhite"/>
 
@@ -107,6 +112,18 @@
                 android:text="@string/text_custom_practice"
                 android:textColor="@color/colorGray800"
                 android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingExtra="4dp"
+                android:paddingBottom="4dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:text="@string/text_custom_practice_explanation"
+                android:textColor="@color/colorGray600"
+                android:textSize="14sp"/>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/horizontals_text_input_layout"
@@ -158,7 +175,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@color/colorAccent"
+                android:background="@drawable/bg_selector_start_button"
                 android:text="@string/button_practice_custom_start"
                 android:textColor="@color/colorWhite"/>
 
