@@ -22,19 +22,20 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
         super(context, attrs);
     }
 
-    public BlockView(Context context, @Nullable AttributeSet attrs, Block block) {
+    public BlockView(Context context, @Nullable AttributeSet attrs, Block block, boolean isPractice) {
         this(context, attrs);
         mBlock = block;
+        mIsPractice = isPractice;
         initializeView();
     }
 
     private Block mBlock;
-    private boolean mIsGuide;
+    private boolean mIsPractice;
 
     private void initializeView() {
 
         setGravity(Gravity.CENTER);
-        if (mIsGuide) {
+        if (mIsPractice) {
             setBackgroundResource(R.drawable.bg_selector_block);
             setOnClickListener(this);
         } else {

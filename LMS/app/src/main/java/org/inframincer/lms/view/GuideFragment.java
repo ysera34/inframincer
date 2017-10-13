@@ -52,19 +52,20 @@ public class GuideFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mBlocksLayout = view.findViewById(R.id.blocks_layout);
+        mBlocksLayout = view.findViewById(R.id.practice_blocks_layout);
 
         mNumberOfMines = 10;
         mNumberOfHorizontals = 10;
         mNumberOfVerticals = 10;
-        BlockStorage blockStorage = BlockStorage.getBlockStorage(mNumberOfMines, mNumberOfHorizontals, mNumberOfVerticals);
+        BlockStorage blockStorage = BlockStorage.getBlockStorage(
+                mNumberOfMines, mNumberOfHorizontals, mNumberOfVerticals);
         mBlocks = blockStorage.getBlocks();
         setBlockViews();
     }
 
     private void setBlockViews() {
         for (int i = 0; i < mNumberOfVerticals; i++) {
-            BlockLayout blockLayout = new BlockLayout(getActivity(), null, mBlocks.get(i));
+            BlockLayout blockLayout = new BlockLayout(getActivity(), null, mBlocks.get(i), false);
             mBlocksLayout.addView(blockLayout);
         }
     }

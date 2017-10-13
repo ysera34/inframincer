@@ -34,6 +34,11 @@ public class BlockStorage {
         setBlocks();
     }
 
+    public static BlockStorage getPracticeBlockStorage(
+            int numberOfMines, int numberOfHorizontals, int numberOfVerticals) {
+        return new BlockStorage(numberOfMines, numberOfHorizontals, numberOfVerticals);
+    }
+
     public ArrayList<ArrayList<Block>> getBlocks() {
         return mBlocks;
     }

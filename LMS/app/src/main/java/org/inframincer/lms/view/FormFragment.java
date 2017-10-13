@@ -27,16 +27,16 @@ import java.util.regex.Pattern;
  * Created by yoon on 2017. 10. 12..
  */
 
-public class PracticeFragment extends Fragment implements View.OnClickListener,
+public class FormFragment extends Fragment implements View.OnClickListener,
         RadioGroup.OnCheckedChangeListener {
 
-    private static final String TAG = PracticeFragment.class.getSimpleName();
+    private static final String TAG = FormFragment.class.getSimpleName();
 
-    public static PracticeFragment newInstance() {
+    public static FormFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        PracticeFragment fragment = new PracticeFragment();
+        FormFragment fragment = new FormFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,7 +69,7 @@ public class PracticeFragment extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_practice, container, false);
+        return inflater.inflate(R.layout.fragment_form, container, false);
     }
 
     @Override
@@ -121,18 +121,18 @@ public class PracticeFragment extends Fragment implements View.OnClickListener,
         int checkedRadioButtonId = mQuickStartRadioGroup.getCheckedRadioButtonId();
         switch (checkedRadioButtonId) {
             case R.id.quick_beginning_radio_button:
-                mNumberOfHorizontals = 5;
-                mNumberOfVerticals = 5;
+                mNumberOfHorizontals = 8;
+                mNumberOfVerticals = 8;
                 mNumberOfMines = 10;
                 break;
             case R.id.quick_intermediate_radio_button:
-                mNumberOfHorizontals = 7;
-                mNumberOfVerticals = 7;
+                mNumberOfHorizontals = 10;
+                mNumberOfVerticals = 10;
                 mNumberOfMines = 20;
                 break;
             case R.id.quick_advanced_radio_button:
-                mNumberOfHorizontals = 10;
-                mNumberOfVerticals = 10;
+                mNumberOfHorizontals = 12;
+                mNumberOfVerticals = 12;
                 mNumberOfMines = 35;
                 break;
         }
@@ -248,7 +248,9 @@ public class PracticeFragment extends Fragment implements View.OnClickListener,
                     return getString(R.string.error_message_no_setting_verticals);
                 }
                 int blocks = mNumberOfHorizontals * mNumberOfVerticals;
-                if (blocks <= mines) {
+                if (blocks == mines) {
+                    return getString(R.string.error_message_same_between_blocks_and_mines);
+                } else if (blocks < mines) {
                     return getString(R.string.error_message_too_many_mines);
                 } else {
                     return null;
@@ -267,15 +269,16 @@ public class PracticeFragment extends Fragment implements View.OnClickListener,
 
     private void showConfirmDialog() {
 
-        String confirmDialogMessage = getString(R.string.practice_start_message,
+        String confirmDialogMessage = getString(R.string.dialog_message_practice_start,
                 mNumberOfHorizontals, mNumberOfVerticals, mNumberOfMines);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.practice_start_title);
+        builder.setTitle(R.string.dialog_title_practice_start);
         builder.setMessage(confirmDialogMessage);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
+                startActivity(PracticeActivity.newIntent(getActivity(),
+                        mNumberOfHorizontals, mNumberOfVerticals, mNumberOfMines));
             }
         });
         builder.setNegativeButton(android.R.string.no, null);

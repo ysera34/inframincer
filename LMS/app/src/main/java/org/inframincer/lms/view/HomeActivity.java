@@ -95,11 +95,11 @@ public class HomeActivity extends AppCompatActivity
                             .commit();
                 }
                 break;
-            case R.id.nav_practice:
-                if ((mFragment != null) && !(mFragment instanceof PracticeFragment)) {
+            case R.id.nav_form:
+                if ((mFragment != null) && !(mFragment instanceof FormFragment)) {
                     mHomeFragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                            .replace(R.id.home_container, PracticeFragment.newInstance())
+                            .replace(R.id.home_container, FormFragment.newInstance())
                             .commit();
                 }
                 break;

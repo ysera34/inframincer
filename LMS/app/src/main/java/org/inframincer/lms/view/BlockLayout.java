@@ -20,20 +20,22 @@ public class BlockLayout extends LinearLayout {
         super(context, attrs);
     }
 
-    public BlockLayout(Context context, @Nullable AttributeSet attrs, ArrayList<Block> blocks) {
+    public BlockLayout(Context context, @Nullable AttributeSet attrs, ArrayList<Block> blocks, boolean isPractice) {
         this(context, attrs);
         mBlocks = blocks;
+        mIsPractice = isPractice;
         initializeView(context);
     }
 
     private ArrayList<Block> mBlocks;
+    private boolean mIsPractice;
 
     private void initializeView(Context context) {
 
         int childViewSize = mBlocks.size();
         int blockViewSize = getResources().getDimensionPixelSize(R.dimen.block_layout_width) / childViewSize;
         for (int i = 0; i < childViewSize; i++) {
-            BlockView blockView = new BlockView(context, null, mBlocks.get(i));
+            BlockView blockView = new BlockView(context, null, mBlocks.get(i), mIsPractice);
             addView(blockView);
             blockView.setViewSize(blockViewSize);
         }

@@ -27,9 +27,9 @@
                 android:icon="@drawable/ic_directions_bus_black_24dp"
                 android:title="@string/nav_guide_title"/>
             <item
-                android:id="@+id/nav_practice"
+                android:id="@+id/nav_form"
                 android:icon="@drawable/ic_directions_car_black_24dp"
-                android:title="@string/nav_practice_title"/>
+                android:title="@string/nav_form_title"/>
         <!--</menu>-->
     <!--</item>-->
 

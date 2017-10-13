@@ -48,7 +48,7 @@
             android:textSize="14sp"/>
 
         <LinearLayout
-            android:id="@+id/blocks_layout"
+            android:id="@+id/practice_blocks_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
