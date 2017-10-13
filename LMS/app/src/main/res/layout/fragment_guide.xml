@@ -30,7 +30,7 @@
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
             android:paddingTop="4dp"
-            android:text="@string/tutorial_information"
+            android:text="@string/text_guide_information"
             android:textColor="@color/colorGray800"
             android:textSize="16sp"/>
 
@@ -43,7 +43,7 @@
             android:paddingEnd="16dp"
             android:paddingStart="16dp"
             android:paddingTop="4dp"
-            android:text="@string/tutorial_explanation"
+            android:text="@string/text_guide_explanation"
             android:textColor="@color/colorGray600"
             android:textSize="14sp"/>
 

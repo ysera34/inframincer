@@ -9,8 +9,8 @@
     <string name="app_title">지뢰찾기</string>
     <string name="author">윤영철</string>
     <string name="source_address">https://goo.gl/FzTvk2</string>
-    <string name="tutorial_information">지뢰찾기의 각 사각형에 나타나는 숫자는 자신을 제외한 주변 8개의 사각형에 포함된 지뢰의 개수를 의미합니다.</string>
-    <string name="tutorial_explanation">아래 예시는 사각형 가로 세로 블럭 10개, 지뢰 10개를 가정하였습니다.</string>
+    <string name="text_guide_information">지뢰찾기의 각 사각형에 나타나는 숫자는 자신을 제외한 주변 8개의 사각형에 포함된 지뢰의 개수를 의미합니다.</string>
+    <string name="text_guide_explanation">아래 예시는 사각형 가로 세로 블럭 10개, 지뢰 10개를 가정하였습니다.</string>
     <string name="nav_guide_title">가이드</string>
     <string name="nav_form_title">시작하기</string>
     <string name="fragment_guide_title">게임 가이드</string>
@@ -36,8 +36,14 @@
     <string name="error_message_too_many_mines">블럭 수보다 지뢰 수가 더 많아요.</string>
     <string name="dialog_title_practice_start">게임을 시작하시겠어요?</string>
     <string name="dialog_message_practice_start">가로 %1$d개, 세로 %2$d개, 지뢰 %3$d개 입니다.</string>
-    <string name="practice_status_title">게임 진행 상태</string>
+    <string name="practice_status_title">게임 구성</string>
     <string name="text_block_status">가로 %1$d개, 세로 %2$d개</string>
     <string name="text_mine_status">지뢰 %1$d개</string>
+    <string name="dialog_title_practice_reset">게임 종료</string>
+    <string name="dialog_message_practice_reset">지뢰를 클릭하셨네요. 다시 시작하시겠어요?</string>
+    <string name="dialog_button_text_recreate">재시작</string>
+    <string name="dialog_button_text_finish">종료</string>
+    <string name="dialog_title_practice_stop">게임 종료</string>
+    <string name="dialog_message_practice_stop">게임을 그만 하시겠어요?</string>
 
 </resources>

@@ -1,9 +1,11 @@
 package org.inframincer.lms.view;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
@@ -19,7 +21,8 @@ import java.util.ArrayList;
  * Created by yoon on 2017. 10. 13..
  */
 
-public class PracticeActivity extends AppCompatActivity {
+public class PracticeActivity extends AppCompatActivity 
+        implements BlockView.OnBlockClickedListener {
 
     private static final String TAG = PracticeActivity.class.getSimpleName();
 
@@ -74,8 +77,60 @@ public class PracticeActivity extends AppCompatActivity {
 
     private void setPracticeBlockViews() {
         for (int i = 0; i < mVerticals; i++) {
-            BlockLayout blockLayout = new BlockLayout(getApplicationContext(), null, mPracticeBlocks.get(i), true);
+            BlockLayout blockLayout = new BlockLayout(
+                    PracticeActivity.this, null, mPracticeBlocks.get(i), true);
             mPracticeBlocksLayout.addView(blockLayout);
         }
+    }
+
+    @Override
+    public void onBlockClicked() {
+        showResetDialog();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        showStopDialog();
+    }
+
+    private void showResetDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(PracticeActivity.this);
+        builder.setTitle(R.string.dialog_title_practice_reset);
+        builder.setMessage(R.string.dialog_message_practice_reset);
+        builder.setPositiveButton(R.string.dialog_button_text_recreate, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                recreate();
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_button_text_finish, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    private void showStopDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(PracticeActivity.this);
+        builder.setTitle(R.string.dialog_title_practice_stop);
+        builder.setMessage(R.string.dialog_message_practice_stop);
+        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        builder.setNegativeButton(android.R.string.no, null);
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

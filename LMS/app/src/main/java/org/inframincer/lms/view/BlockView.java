@@ -24,11 +24,13 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
 
     public BlockView(Context context, @Nullable AttributeSet attrs, Block block, boolean isPractice) {
         this(context, attrs);
+        mContext = context;
         mBlock = block;
         mIsPractice = isPractice;
         initializeView();
     }
 
+    private Context mContext;
     private Block mBlock;
     private boolean mIsPractice;
 
@@ -38,6 +40,14 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
         if (mIsPractice) {
             setBackgroundResource(R.drawable.bg_selector_block);
             setOnClickListener(this);
+            if (mBlock.isMine()) {
+                try {
+                    mBlockClickedListener = (OnBlockClickedListener) mContext;
+                } catch (ClassCastException e) {
+                    throw new ClassCastException(mContext.toString()
+                            + " must implements OnBlockClickedListener");
+                }
+            }
         } else {
             showBlock();
         }
@@ -46,6 +56,9 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
     @Override
     public void onClick(View view) {
         showBlock();
+        if (mBlock.isMine()) {
+            mBlockClickedListener.onBlockClicked();
+        }
     }
 
     public void setViewSize(int viewSize) {
@@ -64,5 +77,11 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
             setTextColor(getResources().getColor(mBlock.getHintColor()));
             setText(String.valueOf(mBlock.getHintNumber()));
         }
+    }
+
+    OnBlockClickedListener mBlockClickedListener;
+
+    interface OnBlockClickedListener {
+        void onBlockClicked();
     }
 }
