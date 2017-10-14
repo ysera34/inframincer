@@ -9,13 +9,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import org.inframincer.lms.R;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, GuideFragment.OnStartButtonClickListener {
 
     private static final String TAG = HomeActivity.class.getSimpleName();
 
@@ -40,10 +39,10 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mHomeFragmentManager = getSupportFragmentManager();
-        mFragment = mHomeFragmentManager.findFragmentById(R.id.home_container);
+        mFragment = mHomeFragmentManager.findFragmentById(R.id.fragment_container);
         if (mFragment == null) {
             mHomeFragmentManager.beginTransaction()
-                    .add(R.id.home_container, GuideFragment.newInstance())
+                    .add(R.id.fragment_container, GuideFragment.newInstance())
                     .commit();
         }
     }
@@ -58,40 +57,18 @@ public class HomeActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
-        mFragment = mHomeFragmentManager.findFragmentById(R.id.home_container);
+        mFragment = mHomeFragmentManager.findFragmentById(R.id.fragment_container);
 
         switch (item.getItemId()) {
             case R.id.nav_guide:
                 if ((mFragment != null) && !(mFragment instanceof GuideFragment)) {
                     mHomeFragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.home_container, GuideFragment.newInstance())
+                            .replace(R.id.fragment_container, GuideFragment.newInstance())
                             .commit();
                 }
                 break;
@@ -99,7 +76,7 @@ public class HomeActivity extends AppCompatActivity
                 if ((mFragment != null) && !(mFragment instanceof FormFragment)) {
                     mHomeFragmentManager.beginTransaction()
                             .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                            .replace(R.id.home_container, FormFragment.newInstance())
+                            .replace(R.id.fragment_container, FormFragment.newInstance())
                             .commit();
                 }
                 break;
@@ -108,5 +85,16 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onStartButtonClick() {
+        mFragment = mHomeFragmentManager.findFragmentById(R.id.fragment_container);
+        if ((mFragment != null) && !(mFragment instanceof FormFragment)) {
+            mHomeFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                    .replace(R.id.fragment_container, FormFragment.newInstance())
+                    .commit();
+        }
     }
 }

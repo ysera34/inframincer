@@ -30,7 +30,6 @@ public class PracticeActivity extends AppCompatActivity
     private static final String EXTRA_VERTICALS_NUMBER = "org.inframincer.lms.verticals_number";
     private static final String EXTRA_MINES_NUMBER = "org.inframincer.lms.mines_number";
 
-
     public static Intent newIntent(Context packageContext,
                                    int horizontals, int verticals, int mines) {
         Intent intent = new Intent(packageContext, PracticeActivity.class);

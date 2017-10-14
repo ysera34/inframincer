@@ -3,6 +3,7 @@ package org.inframincer.lms.view;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.widget.LinearLayout;
 
 import org.inframincer.lms.R;
@@ -32,6 +33,7 @@ public class BlockLayout extends LinearLayout {
 
     private void initializeView(Context context) {
 
+        setGravity(Gravity.CENTER_HORIZONTAL);
         int childViewSize = mBlocks.size();
         int blockViewSize = getResources().getDimensionPixelSize(R.dimen.block_layout_width) / childViewSize;
         for (int i = 0; i < childViewSize; i++) {
@@ -40,4 +42,7 @@ public class BlockLayout extends LinearLayout {
             blockView.setViewSize(blockViewSize);
         }
     }
+
+    
+
 }

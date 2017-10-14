@@ -10,6 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <TextView
@@ -91,11 +93,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:paddingBottom="4dp"
+            android:paddingBottom="8dp"
             android:paddingEnd="8dp"
             android:paddingStart="8dp"
             android:paddingTop="4dp">
@@ -176,14 +175,6 @@
                 android:background="@drawable/bg_selector_start_button"
                 android:text="@string/button_practice_custom_start"
                 android:textColor="@color/colorWhite"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/practice_blocks_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
         </LinearLayout>
 

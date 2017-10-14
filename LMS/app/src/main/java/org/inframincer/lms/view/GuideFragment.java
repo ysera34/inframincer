@@ -1,11 +1,13 @@
 package org.inframincer.lms.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import org.inframincer.lms.R;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
  * Created by yoon on 2017. 10. 11..
  */
 
-public class GuideFragment extends Fragment {
+public class GuideFragment extends Fragment implements View.OnClickListener {
 
     private static final String TAG = GuideFragment.class.getSimpleName();
 
@@ -36,6 +38,7 @@ public class GuideFragment extends Fragment {
     private int mNumberOfHorizontals;
     private int mNumberOfVerticals;
     private LinearLayout mBlocksLayout;
+    private Button mPracticeStartButton;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +64,18 @@ public class GuideFragment extends Fragment {
                 mNumberOfMines, mNumberOfHorizontals, mNumberOfVerticals);
         mBlocks = blockStorage.getBlocks();
         setBlockViews();
+
+        mPracticeStartButton = view.findViewById(R.id.practice_start_button);
+        mPracticeStartButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.practice_start_button:
+                mStartButtonClickListener.onStartButtonClick();
+                break;
+        }
     }
 
     private void setBlockViews() {
@@ -68,5 +83,30 @@ public class GuideFragment extends Fragment {
             BlockLayout blockLayout = new BlockLayout(getActivity(), null, mBlocks.get(i), false);
             mBlocksLayout.addView(blockLayout);
         }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mStartButtonClickListener = (OnStartButtonClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnStartButtonClickListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        if (mStartButtonClickListener != null) {
+            mStartButtonClickListener = null;
+        }
+    }
+
+    OnStartButtonClickListener mStartButtonClickListener;
+
+    interface OnStartButtonClickListener {
+        void onStartButtonClick();
     }
 }
