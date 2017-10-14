@@ -38,15 +38,19 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
 
         setGravity(Gravity.CENTER);
         if (mIsPractice) {
-            setBackgroundResource(R.drawable.bg_selector_block);
-            setOnClickListener(this);
-            if (mBlock.isMine()) {
-                try {
-                    mBlockClickedListener = (OnBlockClickedListener) mContext;
-                } catch (ClassCastException e) {
-                    throw new ClassCastException(mContext.toString()
-                            + " must implements OnBlockClickedListener");
+            if (!mBlock.isVerified()) {
+                setBackgroundResource(R.drawable.bg_selector_block);
+                setOnClickListener(this);
+                if (mBlock.isMine()) {
+                    try {
+                        mBlockClickedListener = (OnBlockClickedListener) mContext;
+                    } catch (ClassCastException e) {
+                        throw new ClassCastException(mContext.toString()
+                                + " must implements OnBlockClickedListener");
+                    }
                 }
+            } else {
+                showBlock();
             }
         } else {
             showBlock();
@@ -69,6 +73,7 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
     }
 
     private void showBlock() {
+        mBlock.setVerified(true);
         if (mBlock.isMine()) {
             setBackgroundResource(R.drawable.ic_mine_24dp);
         } else {

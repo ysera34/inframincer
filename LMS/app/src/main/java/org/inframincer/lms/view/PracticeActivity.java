@@ -30,6 +30,8 @@ public class PracticeActivity extends AppCompatActivity
     private static final String EXTRA_VERTICALS_NUMBER = "org.inframincer.lms.verticals_number";
     private static final String EXTRA_MINES_NUMBER = "org.inframincer.lms.mines_number";
 
+    private static final String INSTANCE_PRACTICE_BLOCKS = "instance_practice_blocks";
+
     public static Intent newIntent(Context packageContext,
                                    int horizontals, int verticals, int mines) {
         Intent intent = new Intent(packageContext, PracticeActivity.class);
@@ -42,6 +44,7 @@ public class PracticeActivity extends AppCompatActivity
     private int mHorizontals;
     private int mVerticals;
     private int mMines;
+    private boolean mIsEnded;
 
     private TextView mBlockStatusTextView;
     private TextView mMineStatusTextView;
@@ -68,9 +71,15 @@ public class PracticeActivity extends AppCompatActivity
 
         mPracticeBlocksLayout = (LinearLayout) findViewById(R.id.practice_blocks_layout);
 
-        BlockStorage blockStorage = BlockStorage.getPracticeBlockStorage(
-                mMines, mHorizontals, mVerticals);
-        mPracticeBlocks = blockStorage.getBlocks();
+
+        if (savedInstanceState != null) {
+            ArrayList<Block> blocks = savedInstanceState.getParcelableArrayList(INSTANCE_PRACTICE_BLOCKS);
+            mPracticeBlocks = setSquare(blocks);
+        } else {
+            BlockStorage blockStorage = BlockStorage.getPracticeBlockStorage(
+                    mMines, mHorizontals, mVerticals);
+            mPracticeBlocks = blockStorage.getBlocks();
+        }
         setPracticeBlockViews();
     }
 
@@ -84,6 +93,7 @@ public class PracticeActivity extends AppCompatActivity
 
     @Override
     public void onBlockClicked() {
+
         showResetDialog();
     }
 
@@ -101,6 +111,7 @@ public class PracticeActivity extends AppCompatActivity
         builder.setPositiveButton(R.string.dialog_button_text_recreate, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                mIsEnded = true;
                 recreate();
             }
         });
@@ -124,6 +135,7 @@ public class PracticeActivity extends AppCompatActivity
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                mIsEnded = true;
                 finish();
             }
         });
@@ -131,5 +143,37 @@ public class PracticeActivity extends AppCompatActivity
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if (!mIsEnded) {
+            outState.putParcelableArrayList(INSTANCE_PRACTICE_BLOCKS, setStraighten());
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    private ArrayList<Block> setStraighten() {
+        ArrayList<Block> straightBlocks = new ArrayList<>();
+        for (ArrayList<Block> blocks : mPracticeBlocks) {
+            for (Block b : blocks) {
+                straightBlocks.add(b);
+            }
+        }
+        return straightBlocks;
+    }
+
+    private ArrayList<ArrayList<Block>> setSquare(ArrayList<Block> blocks) {
+        ArrayList<ArrayList<Block>> squareBlocks = new ArrayList<>();
+        for (int i = 0; i < mVerticals; i++) {
+            ArrayList<Block> block = new ArrayList<>();
+            int start  = i * mHorizontals;
+            int end = start + mHorizontals;
+            for (int j = start; j < end; j++) {
+                block.add(blocks.get(j));
+            }
+            squareBlocks.add(block);
+        }
+        return squareBlocks;
     }
 }
