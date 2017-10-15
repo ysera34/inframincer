@@ -18,6 +18,13 @@ public class BlockStorage {
     private int mNumberOfHorizontals;
     private int mNumberOfVerticals;
 
+    /**
+     * 가이드용 지뢰 찾기 블럭을 위한 생성자
+     * @param numberOfMines 지뢰의 개수
+     * @param numberOfHorizontals 가로 방향 블럭의 개수
+     * @param numberOfVerticals 세로 방향 블럭의 개수
+     * @return BlockStorage의 인스턴스를 리턴합니다.
+     */
     public static BlockStorage getBlockStorage(
             int numberOfMines, int numberOfHorizontals, int numberOfVerticals) {
         if (sBlockStorage == null) {
@@ -26,6 +33,24 @@ public class BlockStorage {
         return sBlockStorage;
     }
 
+    /**
+     * 게임용 지뢰 찾기 블럭을 위한 생성자
+     * @param numberOfMines 지뢰의 개수
+     * @param numberOfHorizontals 가로 방향 블럭의 개수
+     * @param numberOfVerticals 세로 방향 블럭의 개수
+     * @return BlockStorage의 인스턴스를 리턴합니다.
+     */
+    public static BlockStorage getPracticeBlockStorage(
+            int numberOfMines, int numberOfHorizontals, int numberOfVerticals) {
+        return new BlockStorage(numberOfMines, numberOfHorizontals, numberOfVerticals);
+    }
+
+    /**
+     * 위 두 메소드를 위한 실제 생성자
+     * @param numberOfMines 지뢰의 개수
+     * @param numberOfHorizontals 가로 방향 블럭의 개수
+     * @param numberOfVerticals 세로 방향 블럭의 개수
+     */
     private BlockStorage(int numberOfMines, int numberOfHorizontals, int numberOfVerticals) {
         mNumberOfMines = numberOfMines;
         mNumberOfHorizontals = numberOfHorizontals;
@@ -34,48 +59,30 @@ public class BlockStorage {
         setBlocks();
     }
 
-    public static BlockStorage getPracticeBlockStorage(
-            int numberOfMines, int numberOfHorizontals, int numberOfVerticals) {
-        return new BlockStorage(numberOfMines, numberOfHorizontals, numberOfVerticals);
-    }
-
     public ArrayList<ArrayList<Block>> getBlocks() {
         return mBlocks;
     }
 
-    public void setBlocks() {
-
-//        for (int i = 0; i < mNumberOfVerticals; i++) {
-//            ArrayList<Block> blocks = new ArrayList<>(mNumberOfHorizontals);
-//            for (int j = 0; j < mNumberOfHorizontals; j++) {
-//                Block block = new Block();
-//                block.setNumber((i * 100) + (j));
-//                blocks.add(block);
-//            }
-//            mBlocks.add(blocks);
-//        }
-
-//        for (ArrayList<Block> blocks : mBlocks) {
-//            for (Block block : blocks) {
-//                Log.i(TAG, "setBlocks: block number : " + block.getNumber());
-//            }
-//        }
-
+    /**
+     * 생성자에서 넘겨 받은 가로, 세로 개수로 블럭을 생성하고,
+     * 그 블럭을 랜덤으로 지뢰를 세팅한 후, 지뢰가 없는 블럭에는 주위 8방향의 지뢰 개수를 세팅합니다.
+     */
+    private void setBlocks() {
         ArrayList<Block> blocks = new ArrayList<>();
         int blockCount = mNumberOfHorizontals * mNumberOfVerticals;
         for (int i = 0; i < blockCount; i++) {
             Block block = new Block();
-//            block.setNumber(i);
             blocks.add(block);
         }
-//        for (Block block1 : blocks) {
-//            Log.i(TAG, "setBlocks: block number : " + block1.getNumber());
-//        }
         setMines(blocks);
         arrangeBlocks(blocks);
         setBlockHintNumber();
     }
 
+    /**
+     * {@link #getUniqueIndex()} 를 통해 지뢰가 세팅될 인덱스 ArrayList를 받아서 들럭에 세팅합니다.
+     * @param blocks 지뢰가 세팅 되기 전의 블럭들
+     */
     private void setMines(ArrayList<Block> blocks) {
         ArrayList<Integer> mines = getUniqueIndex();
         for (int i : mines) {
@@ -83,6 +90,11 @@ public class BlockStorage {
         }
     }
 
+    /**
+     * 지뢰가 세팅된 블럭들을 힌트 수(자신을 제외한 8방향의 지뢰 수)를 세팅하기 위해서,
+     * 1차원 ArrayList를 2차원 ArrayList로 재정리 합니다.
+     * @param blocks 지뢰가 세팅된 블럭들
+     */
     private void arrangeBlocks(ArrayList<Block> blocks) {
         for (int i = 0; i < mNumberOfVerticals; i++) {
             ArrayList<Block> block = new ArrayList<>();
@@ -93,14 +105,16 @@ public class BlockStorage {
             }
             mBlocks.add(block);
         }
-
-//        for (ArrayList<Block> blocks1 : mBlocks) {
-//            for (Block block : blocks1) {
-//                Log.i(TAG, "arrangeBlocks: block number : " + block.getNumber());
-//            }
-//        }
     }
 
+    /**
+     * 힌트 수를 세팅하는 메소드입니다.
+     * {@link #arrangeBlocks(ArrayList)} ()} 이용하여 1차원 블럭들을 2차원 사각형 모양으로 블럭들을 정리하였습니다.
+     * 2차원 자료구조를 반복문으로 돌리고, 지뢰인 블럭을 찾을 경우,
+     * 1. 그 블럭의 좌우 블럭에 힌트 수를 1씩 증가 시켜줍니다.
+     * 2. 그 블럭의 윗 줄의 블럭을 가져와서 해당되는 3개의 블럭에 힌트 수를 1씩 증가 시켜줍니다.
+     * 3. 그 블럭의 아랫 줄의 블럭을 가져와서 해당되는 3개의 블럭에 힌트 수를 1씩 증가 시켜줍니다.
+     */
     private void setBlockHintNumber() {
         int outerSize = mBlocks.size();
         for (int i = 0; i < outerSize; i++) {
@@ -137,15 +151,6 @@ public class BlockStorage {
                 }
             }
         }
-
-//        for (ArrayList<Block> blocks1 : mBlocks) {
-//            for (Block block : blocks1) {
-//                if (block.isMine()) {
-//                    block.setHintNumber(Integer.MAX_VALUE);
-//                }
-//                Log.i(TAG, "setBlockHintNumber: block getHintNumber : " + block.getHintNumber());
-//            }
-//        }
     }
 
     public void clearBlocks() {
@@ -155,6 +160,11 @@ public class BlockStorage {
         mBlocks.clear();
     }
 
+    /**
+     * 생성자를 통해 정해진 지뢰 수를 세팅
+     * {@link #getRandomIndex()}를 이용해 유일한 인덱스 지뢰 수 만큼 세팅하고 오름 차순으로 정렬합니다.
+     * @return 블럭에 세팅될 지뢰의 인덱스 배열을 리턴합니다.
+     */
     private ArrayList<Integer> getUniqueIndex() {
         ArrayList<Integer> uniqueIndices = new ArrayList<>();
         while (uniqueIndices.size() != mNumberOfMines) {
@@ -175,13 +185,13 @@ public class BlockStorage {
                 }
             }
         });
-
-//        for (int i = 0; i < uniqueIndices.size(); i++) {
-//            Log.i(TAG, "getUniqueIndex: index : " + i + " number : " + uniqueIndices.get(i));
-//        }
         return uniqueIndices;
     }
 
+    /**
+     * 랜덤인덱스를 생성하는 메소드.
+     * @return 랜덤인덱스를 생성하고 리턴합니다.
+     */
     private int getRandomIndex() {
         int maxIndex = mNumberOfHorizontals * mNumberOfVerticals;
         return (int) (Math.random() * maxIndex);
