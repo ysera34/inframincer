@@ -45,5 +45,7 @@
     <string name="dialog_button_text_finish">종료</string>
     <string name="dialog_title_practice_stop">게임 종료</string>
     <string name="dialog_message_practice_stop">게임을 그만 하시겠어요?</string>
+    <string name="dialog_title_practice_achieve">목표 달성</string>
+    <string name="dialog_message_practice_achieve">지뢰를 모두 찾으셨습니다.</string>
 
 </resources>

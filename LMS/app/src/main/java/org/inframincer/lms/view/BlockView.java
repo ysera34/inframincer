@@ -16,7 +16,8 @@ import org.inframincer.lms.model.Block;
  * Created by yoon on 2017. 10. 12..
  */
 
-public class BlockView extends AppCompatTextView implements View.OnClickListener {
+public class BlockView extends AppCompatTextView
+        implements View.OnClickListener, View.OnLongClickListener {
 
     private BlockView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -39,16 +40,7 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
         setGravity(Gravity.CENTER);
         if (mIsPractice) {
             if (!mBlock.isVerified()) {
-                setBackgroundResource(R.drawable.bg_selector_block);
-                setOnClickListener(this);
-                if (mBlock.isMine()) {
-                    try {
-                        mBlockClickedListener = (OnBlockClickedListener) mContext;
-                    } catch (ClassCastException e) {
-                        throw new ClassCastException(mContext.toString()
-                                + " must implements OnBlockClickedListener");
-                    }
-                }
+                initializeBlock();
             } else {
                 showBlock();
             }
@@ -65,6 +57,22 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
         }
     }
 
+    @Override
+    public boolean onLongClick(View view) {
+        if (!mBlock.isDetected()) {
+            setBackgroundResource(R.drawable.bg_block_detected);
+            setOnClickListener(null);
+            mBlock.setDetected(true);
+        } else {
+            initializeBlock();
+            mBlock.setDetected(false);
+        }
+        if (mBlock.isMine()) {
+            mBlockClickedListener.onBlockLongClicked();
+        }
+        return true;
+    }
+
     public void setViewSize(int viewSize) {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) getLayoutParams();
         params.width = viewSize;
@@ -74,8 +82,11 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
 
     private void showBlock() {
         mBlock.setVerified(true);
+        setOnClickListener(null);
+        setOnLongClickListener(null);
         if (mBlock.isMine()) {
             setBackgroundResource(R.drawable.ic_mine_24dp);
+            setText(null);
         } else {
             setBackground(null);
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
@@ -84,9 +95,25 @@ public class BlockView extends AppCompatTextView implements View.OnClickListener
         }
     }
 
+    private void initializeBlock() {
+        setBackgroundResource(R.drawable.bg_selector_block);
+        setOnClickListener(this);
+        setOnLongClickListener(this);
+        if (mBlock.isMine()) {
+            try {
+                mBlockClickedListener = (OnBlockClickedListener) mContext;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(mContext.toString()
+                        + " must implements OnBlockClickedListener");
+            }
+        }
+    }
+
     OnBlockClickedListener mBlockClickedListener;
 
     interface OnBlockClickedListener {
         void onBlockClicked();
+
+        void onBlockLongClicked();
     }
 }

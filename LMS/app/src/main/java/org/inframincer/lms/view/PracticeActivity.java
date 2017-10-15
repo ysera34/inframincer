@@ -105,9 +105,39 @@ public class PracticeActivity extends AppCompatActivity
     }
 
     @Override
+    public void onBlockLongClicked() {
+        if (compareBlocks()) {
+            showAchieveDialog();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
 //        super.onBackPressed();
         showStopDialog();
+    }
+
+    private void showAchieveDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PracticeActivity.this);
+        builder.setTitle(R.string.dialog_title_practice_achieve);
+        builder.setMessage(R.string.dialog_message_practice_achieve);
+        builder.setPositiveButton(R.string.dialog_button_text_recreate, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mIsReset = true;
+                recreate();
+            }
+        });
+        builder.setNegativeButton(R.string.dialog_button_text_finish, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
     }
 
     private void showResetDialog() {
@@ -147,6 +177,17 @@ public class PracticeActivity extends AppCompatActivity
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private boolean compareBlocks() {
+        for (ArrayList<Block> blocks : mPracticeBlocks) {
+            for (Block block : blocks) {
+                if (block.isMine() && !block.isDetected()) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override

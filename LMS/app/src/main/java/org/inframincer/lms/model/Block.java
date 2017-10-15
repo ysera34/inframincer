@@ -15,6 +15,7 @@ public class Block implements Parcelable {
     private int mHintNumber;
     private boolean mIsMine;
     private boolean mIsVerified;
+    private boolean mIsDetected;
     private int[] mHintColorArray = {
             R.color.colorPink100, R.color.colorPink200, R.color.colorPink300,
             R.color.colorPink400, R.color.colorPink500, R.color.colorPink600,
@@ -28,6 +29,7 @@ public class Block implements Parcelable {
         parcel.writeInt(mHintNumber);
         parcel.writeByte((byte) (mIsMine ? 1 : 0));
         parcel.writeByte((byte) (mIsVerified ? 1 : 0));
+        parcel.writeByte((byte) (mIsDetected ? 1 : 0));
     }
 
     public static final Parcelable.Creator<Block> CREATOR
@@ -45,6 +47,7 @@ public class Block implements Parcelable {
         mHintNumber = in.readInt();
         mIsMine = in.readByte() != 0;
         mIsVerified = in.readByte() != 0;
+        mIsDetected = in.readByte() != 0;
     }
 
 //    public int getNumber() {
@@ -85,6 +88,14 @@ public class Block implements Parcelable {
 
     public void setVerified(boolean verified) {
         mIsVerified = verified;
+    }
+
+    public boolean isDetected() {
+        return mIsDetected;
+    }
+
+    public void setDetected(boolean detected) {
+        mIsDetected = detected;
     }
 
     @Override
