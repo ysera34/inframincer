@@ -31,6 +31,7 @@ public class PracticeActivity extends AppCompatActivity
     private static final String EXTRA_MINES_NUMBER = "org.inframincer.lms.mines_number";
 
     private static final String INSTANCE_PRACTICE_BLOCKS = "instance_practice_blocks";
+    private static final String INSTANCE_IS_RESET = "instance_is_reset";
 
     public static Intent newIntent(Context packageContext,
                                    int horizontals, int verticals, int mines) {
@@ -44,11 +45,11 @@ public class PracticeActivity extends AppCompatActivity
     private int mHorizontals;
     private int mVerticals;
     private int mMines;
-    private boolean mIsEnded;
 
     private TextView mBlockStatusTextView;
     private TextView mMineStatusTextView;
 
+    private boolean mIsReset;
     private ArrayList<ArrayList<Block>> mPracticeBlocks;
     private LinearLayout mPracticeBlocksLayout;
 
@@ -71,10 +72,17 @@ public class PracticeActivity extends AppCompatActivity
 
         mPracticeBlocksLayout = (LinearLayout) findViewById(R.id.practice_blocks_layout);
 
-
         if (savedInstanceState != null) {
-            ArrayList<Block> blocks = savedInstanceState.getParcelableArrayList(INSTANCE_PRACTICE_BLOCKS);
-            mPracticeBlocks = setSquare(blocks);
+            mIsReset = savedInstanceState.getBoolean(INSTANCE_IS_RESET, false);
+            if (!mIsReset) {
+                ArrayList<Block> blocks = savedInstanceState.getParcelableArrayList(INSTANCE_PRACTICE_BLOCKS);
+                mPracticeBlocks = setSquare(blocks);
+            } else {
+                BlockStorage blockStorage = BlockStorage.getPracticeBlockStorage(
+                        mMines, mHorizontals, mVerticals);
+                mPracticeBlocks = blockStorage.getBlocks();
+                mIsReset = false;
+            }
         } else {
             BlockStorage blockStorage = BlockStorage.getPracticeBlockStorage(
                     mMines, mHorizontals, mVerticals);
@@ -93,7 +101,6 @@ public class PracticeActivity extends AppCompatActivity
 
     @Override
     public void onBlockClicked() {
-
         showResetDialog();
     }
 
@@ -104,14 +111,13 @@ public class PracticeActivity extends AppCompatActivity
     }
 
     private void showResetDialog() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(PracticeActivity.this);
         builder.setTitle(R.string.dialog_title_practice_reset);
         builder.setMessage(R.string.dialog_message_practice_reset);
         builder.setPositiveButton(R.string.dialog_button_text_recreate, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mIsEnded = true;
+                mIsReset = true;
                 recreate();
             }
         });
@@ -128,14 +134,12 @@ public class PracticeActivity extends AppCompatActivity
     }
 
     private void showStopDialog() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(PracticeActivity.this);
         builder.setTitle(R.string.dialog_title_practice_stop);
         builder.setMessage(R.string.dialog_message_practice_stop);
         builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mIsEnded = true;
                 finish();
             }
         });
@@ -147,9 +151,8 @@ public class PracticeActivity extends AppCompatActivity
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if (!mIsEnded) {
-            outState.putParcelableArrayList(INSTANCE_PRACTICE_BLOCKS, setStraighten());
-        }
+        outState.putParcelableArrayList(INSTANCE_PRACTICE_BLOCKS, setStraighten());
+        outState.putBoolean(INSTANCE_IS_RESET, mIsReset);
         super.onSaveInstanceState(outState);
     }
 
