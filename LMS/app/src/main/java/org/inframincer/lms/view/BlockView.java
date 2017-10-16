@@ -41,6 +41,9 @@ public class BlockView extends AppCompatTextView
         if (mIsPractice) {
             if (!mBlock.isVerified()) {
                 initializeBlock();
+                if (mBlock.isDetected()) {
+                    indicateDetectedBlock();
+                }
             } else {
                 showBlock();
             }
@@ -59,16 +62,18 @@ public class BlockView extends AppCompatTextView
 
     @Override
     public boolean onLongClick(View view) {
+
+//        if (mBlock.isMine()) {
+//            mBlockClickedListener.onBlockLongClicked();
+//        }
         if (!mBlock.isDetected()) {
-            setBackgroundResource(R.drawable.bg_block_detected);
-            setOnClickListener(null);
+            indicateDetectedBlock();
             mBlock.setDetected(true);
+            mBlockClickedListener.onBlockLongClicked(true);
         } else {
             initializeBlock();
             mBlock.setDetected(false);
-        }
-        if (mBlock.isMine()) {
-            mBlockClickedListener.onBlockLongClicked();
+            mBlockClickedListener.onBlockLongClicked(false);
         }
         return true;
     }
@@ -78,6 +83,33 @@ public class BlockView extends AppCompatTextView
         params.width = viewSize;
         params.height = viewSize;
         setLayoutParams(params);
+    }
+
+    private void initializeBlock() {
+        setBackgroundResource(R.drawable.bg_selector_block);
+        setOnClickListener(this);
+        setOnLongClickListener(this);
+//        if (mBlock.isMine()) {
+            try {
+                mBlockClickedListener = (OnBlockClickedListener) mContext;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(mContext.toString()
+                        + " must implements OnBlockClickedListener");
+            }
+//        }
+    }
+
+    private void indicateDetectedBlock() {
+//        if (!mBlock.isDetected()) {
+            setBackgroundResource(R.drawable.bg_block_detected);
+            setOnClickListener(null);
+//            mBlock.setDetected(true);
+//            mBlockClickedListener.onBlockLongClicked(true);
+//        } else {
+//            initializeBlock();
+//            mBlock.setDetected(false);
+//            mBlockClickedListener.onBlockLongClicked(false);
+//        }
     }
 
     private void showBlock() {
@@ -95,25 +127,11 @@ public class BlockView extends AppCompatTextView
         }
     }
 
-    private void initializeBlock() {
-        setBackgroundResource(R.drawable.bg_selector_block);
-        setOnClickListener(this);
-        setOnLongClickListener(this);
-        if (mBlock.isMine()) {
-            try {
-                mBlockClickedListener = (OnBlockClickedListener) mContext;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(mContext.toString()
-                        + " must implements OnBlockClickedListener");
-            }
-        }
-    }
-
     OnBlockClickedListener mBlockClickedListener;
 
     interface OnBlockClickedListener {
         void onBlockClicked();
 
-        void onBlockLongClicked();
+        void onBlockLongClicked(boolean isAdded);
     }
 }

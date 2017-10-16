@@ -32,6 +32,7 @@ public class PracticeActivity extends AppCompatActivity
 
     private static final String INSTANCE_PRACTICE_BLOCKS = "instance_practice_blocks";
     private static final String INSTANCE_IS_RESET = "instance_is_reset";
+    private static final String INSTANCE_DETECTING_COUNT = "instance_detecting_count";
 
     public static Intent newIntent(Context packageContext,
                                    int horizontals, int verticals, int mines) {
@@ -45,9 +46,11 @@ public class PracticeActivity extends AppCompatActivity
     private int mHorizontals;
     private int mVerticals;
     private int mMines;
+    private int mDetectingCount;
 
     private TextView mBlockStatusTextView;
     private TextView mMineStatusTextView;
+    private TextView mDetectStatusTextView;
 
     private boolean mIsReset;
     private ArrayList<ArrayList<Block>> mPracticeBlocks;
@@ -73,6 +76,7 @@ public class PracticeActivity extends AppCompatActivity
         mMineStatusTextView = (TextView) findViewById(R.id.mine_status_text_view);
         mBlockStatusTextView.setText(getString(R.string.text_block_status, mHorizontals, mVerticals));
         mMineStatusTextView.setText(getString(R.string.text_mine_status, mMines));
+        mDetectStatusTextView = (TextView) findViewById(R.id.detect_status_text_view);
 
         mPracticeBlocksLayout = (LinearLayout) findViewById(R.id.practice_blocks_layout);
 
@@ -81,6 +85,8 @@ public class PracticeActivity extends AppCompatActivity
             if (!mIsReset) {
                 ArrayList<Block> blocks = savedInstanceState.getParcelableArrayList(INSTANCE_PRACTICE_BLOCKS);
                 mPracticeBlocks = setSquare(blocks);
+                mDetectingCount = savedInstanceState.getInt(INSTANCE_DETECTING_COUNT);
+                mDetectStatusTextView.setText(getString(R.string.text_detect_status, mDetectingCount));
             } else {
                 BlockStorage blockStorage = BlockStorage.getPracticeBlockStorage(
                         mMines, mHorizontals, mVerticals);
@@ -108,11 +114,24 @@ public class PracticeActivity extends AppCompatActivity
         showResetDialog();
     }
 
+//    @Override
+//    public void onBlockLongClicked() {
+//        if (compareBlocks()) {
+//            showAchieveDialog();
+//        }
+//    }
+
     @Override
-    public void onBlockLongClicked() {
-        if (compareBlocks()) {
-            showAchieveDialog();
+    public void onBlockLongClicked(boolean isAdded) {
+        if (isAdded) {
+            mDetectingCount++;
+            if (compareBlocks()) {
+                showAchieveDialog();
+            }
+        } else {
+            mDetectingCount--;
         }
+        mDetectStatusTextView.setText(getString(R.string.text_detect_status, mDetectingCount));
     }
 
     @Override
@@ -204,6 +223,7 @@ public class PracticeActivity extends AppCompatActivity
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelableArrayList(INSTANCE_PRACTICE_BLOCKS, setStraighten());
         outState.putBoolean(INSTANCE_IS_RESET, mIsReset);
+        outState.putInt(INSTANCE_DETECTING_COUNT, mDetectingCount);
         super.onSaveInstanceState(outState);
     }
 

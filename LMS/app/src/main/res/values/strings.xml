@@ -39,6 +39,7 @@
     <string name="practice_status_title">게임 구성</string>
     <string name="text_block_status">가로 %1$d개, 세로 %2$d개</string>
     <string name="text_mine_status">지뢰 %1$d개</string>
+    <string name="text_detect_status">표시한 지뢰 %1$d개</string>
     <string name="dialog_title_practice_reset">게임 종료</string>
     <string name="dialog_message_practice_reset">지뢰를 클릭하셨네요. 다시 시작하시겠어요?</string>
     <string name="dialog_button_text_recreate">재시작</string>
