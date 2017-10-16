@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +40,6 @@ public class FormFragment extends Fragment implements View.OnClickListener,
         return fragment;
     }
 
-    private NestedScrollView mPracticeNestedScrollView;
     private RadioGroup mQuickStartRadioGroup;
     private Button mPracticeQuickStartButton;
 
@@ -76,7 +74,6 @@ public class FormFragment extends Fragment implements View.OnClickListener,
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mPracticeNestedScrollView = view.findViewById(R.id.practice_nested_scroll_view);
         mQuickStartRadioGroup = view.findViewById(R.id.quick_start_radio_group);
         mQuickStartRadioGroup.setOnCheckedChangeListener(this);
         mPracticeQuickStartButton = view.findViewById(R.id.practice_quick_start_button);

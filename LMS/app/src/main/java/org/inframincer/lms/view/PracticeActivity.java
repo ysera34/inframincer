@@ -64,6 +64,10 @@ public class PracticeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.app_title));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         mBlockStatusTextView = (TextView) findViewById(R.id.block_status_text_view);
         mMineStatusTextView = (TextView) findViewById(R.id.mine_status_text_view);
@@ -109,6 +113,12 @@ public class PracticeActivity extends AppCompatActivity
         if (compareBlocks()) {
             showAchieveDialog();
         }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
