@@ -89,7 +89,7 @@ public class HomeFragment extends Fragment {
         mNeedleImageView = view.findViewById(R.id.needle_image_view);
         mNeedleRotateAnimation = new RotateAnimation(0, -90f,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                RotateAnimation.RELATIVE_TO_SELF, 0.77389f);
+                RotateAnimation.RELATIVE_TO_SELF, 0.783482f);
         mNeedleRotateAnimation.setDuration(500);
         mNeedleRotateAnimation.setFillAfter(true);
         mNeedleImageView.startAnimation(mNeedleRotateAnimation);
@@ -154,7 +154,7 @@ public class HomeFragment extends Fragment {
             mNeedleRotateAnimation = new RotateAnimation(INITIAL_POSITION - 90f,
                     calculateTheAngle(value) - 90f,
                     RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                    RotateAnimation.RELATIVE_TO_SELF, 0.77389f);
+                    RotateAnimation.RELATIVE_TO_SELF, 0.783482f);
             mNeedleRotateAnimation.setDuration(500);
             mNeedleRotateAnimation.setInterpolator(new OvershootInterpolator(3));
             mNeedleRotateAnimation.setFillAfter(true);
