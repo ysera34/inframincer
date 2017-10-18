@@ -1,154 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/date_time_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center_horizontal"
-            android:textColor="@color/colorGray500"
-            android:textSize="15sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:gravity="center_horizontal"
-            android:text="@string/stage_of_occurrence"
-            android:textColor="@color/colorGray800"
-            android:textSize="24sp"/>
-
-        <TextView
-            android:id="@+id/stage_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textSize="18sp"
-            android:gravity="center_horizontal"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-
-            <ImageView
-                android:id="@+id/measurement_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/bg_measurement"
-                android:contentDescription="@string/measurement_image"/>
-
-            <ImageView
-                android:id="@+id/needle_image_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/needle"
-                android:contentDescription="@string/measurement_needle_image"/>
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/status_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="4dp"
-            android:textColor="@color/colorAmber700"
-            android:textSize="42sp"/>
-
-        <TextView
-            android:id="@+id/action1_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:lineSpacingExtra="4sp"
-            android:padding="4dp"
-            android:text="\n\n\n\n\n\n\n\n\n\n"
-            android:textColor="@color/colorGray700"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/actions_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@color/colorGray300"
-            android:paddingBottom="6dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingTop="6dp"
-            android:text="@string/step_by_step_behavior"
-            android:textColor="@color/colorBlack"
-            android:textSize="14sp"/>
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="6dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingTop="16dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/date_time_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
-                android:text="@string/action2_text"
-                android:textSize="14sp"/>
+                android:layout_marginTop="8dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorGray500"
+                android:textSize="15sp"/>
 
             <TextView
-                android:id="@+id/action2_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                android:lineSpacingExtra="6sp"
-                android:textColor="@color/colorGray700"/>
+                android:layout_marginTop="4dp"
+                android:gravity="center_horizontal"
+                android:text="@string/stage_of_occurrence"
+                android:textColor="@color/colorGray800"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/stage_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_horizontal"
+                android:textSize="18sp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:id="@+id/measurement_image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/measurement_image"
+                    android:src="@drawable/bg_measurement"/>
+
+                <ImageView
+                    android:id="@+id/needle_image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/measurement_needle_image"
+                    android:src="@drawable/needle"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/status_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="4dp"
+                android:textColor="@color/colorAmber700"
+                android:textSize="42sp"/>
+
+            <TextView
+                android:id="@+id/action1_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="4sp"
+                android:padding="4dp"
+                android:text="\n\n\n\n\n\n\n\n\n\n"
+                android:textColor="@color/colorGray700"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/actions_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorGray300"
+                android:paddingBottom="6dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="6dp"
+                android:text="@string/step_by_step_behavior"
+                android:textColor="@color/colorBlack"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="6dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action2_text"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/action2_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingExtra="6sp"
+                    android:textColor="@color/colorGray700"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:paddingTop="6dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/action3_text"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/action3_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingExtra="6sp"
+                    android:textColor="@color/colorGray700"
+                    android:textSize="14sp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp"
-            android:paddingEnd="16dp"
-            android:paddingStart="16dp"
-            android:paddingTop="6dp"
-            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorBlack"
-                android:text="@string/action3_text"
-                android:textSize="14sp"/>
+    </android.support.v4.widget.NestedScrollView>
 
-            <TextView
-                android:id="@+id/action3_text_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:layout_marginTop="6dp"
-                android:lineSpacingExtra="6sp"
-                android:textColor="@color/colorGray700"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-</android.support.v4.widget.NestedScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

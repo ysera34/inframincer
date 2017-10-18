@@ -3,6 +3,7 @@ package org.inframincer.slap.view.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,7 @@ import retrofit2.Response;
  * Created by yoon on 2017. 10. 9..
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
 
@@ -53,6 +54,7 @@ public class HomeFragment extends Fragment {
     }
 
     private DatabaseReference mDatabaseReference;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     private TextView mDateTimeTextView;
     private ImageView mNeedleImageView;
     private RotateAnimation mNeedleRotateAnimation;
@@ -86,6 +88,8 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         mNeedleImageView = view.findViewById(R.id.needle_image_view);
         mNeedleRotateAnimation = new RotateAnimation(0, -90f,
                 RotateAnimation.RELATIVE_TO_SELF, 0.5f,
@@ -103,6 +107,12 @@ public class HomeFragment extends Fragment {
         mAction2TextView = view.findViewById(R.id.action2_text_view);
         mAction3TextView = view.findViewById(R.id.action3_text_view);
         callStatusValue();
+    }
+
+    @Override
+    public void onRefresh() {
+        callStatusValue();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private void callStatusValue() {
