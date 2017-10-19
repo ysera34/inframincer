@@ -114,13 +114,6 @@ public class PracticeActivity extends AppCompatActivity
         showResetDialog();
     }
 
-//    @Override
-//    public void onBlockLongClicked() {
-//        if (compareBlocks()) {
-//            showAchieveDialog();
-//        }
-//    }
-
     @Override
     public void onBlockLongClicked(boolean isAdded) {
         if (isAdded) {

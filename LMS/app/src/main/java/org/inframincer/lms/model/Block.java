@@ -11,11 +11,10 @@ import org.inframincer.lms.R;
 
 public class Block implements Parcelable {
 
-//    private int mNumber;
-    private int mHintNumber;
-    private boolean mIsMine;
-    private boolean mIsVerified;
-    private boolean mIsDetected;
+    private int mHintNumber; // 주위 8방향의 지뢰의 개수
+    private boolean mIsMine; // 블럭이 지뢰인지의 여부
+    private boolean mIsVerified; // 사용자가 블럭을 열어보았는지 여부
+    private boolean mIsDetected; // 사용자가 블럭을 지뢰로 표시하였는지 여부
     private int[] mHintColorArray = {
             R.color.colorPink100, R.color.colorPink200, R.color.colorPink300,
             R.color.colorPink400, R.color.colorPink500, R.color.colorPink600,
@@ -50,20 +49,8 @@ public class Block implements Parcelable {
         mIsDetected = in.readByte() != 0;
     }
 
-//    public int getNumber() {
-//        return mNumber;
-//    }
-//
-//    public void setNumber(int number) {
-//        mNumber = number;
-//    }
-
     public int getHintNumber() {
         return mHintNumber;
-    }
-
-    public void setHintNumber(int hintNumber) {
-        mHintNumber = hintNumber;
     }
 
     public void addHintNumber() {

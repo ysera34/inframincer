@@ -42,7 +42,4 @@ public class BlockLayout extends LinearLayout {
             blockView.setViewSize(blockViewSize);
         }
     }
-
-    
-
 }

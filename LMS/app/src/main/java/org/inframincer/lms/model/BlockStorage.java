@@ -10,8 +10,6 @@ import java.util.Comparator;
 
 public class BlockStorage {
 
-    private static final String TAG = BlockStorage.class.getSimpleName();
-
     private static BlockStorage sBlockStorage;
     private ArrayList<ArrayList<Block>> mBlocks;
     private int mNumberOfMines;
@@ -65,7 +63,7 @@ public class BlockStorage {
 
     /**
      * 생성자에서 넘겨 받은 가로, 세로 개수로 블럭을 생성하고,
-     * 그 블럭을 랜덤으로 지뢰를 세팅한 후, 지뢰가 없는 블럭에는 주위 8방향의 지뢰 개수를 세팅합니다.
+     * 그 블럭들에 랜덤으로 지뢰를 세팅한 후, 지뢰가 없는 블럭에는 주위 8방향의 지뢰 개수를 세팅합니다.
      */
     private void setBlocks() {
         ArrayList<Block> blocks = new ArrayList<>();
@@ -80,7 +78,7 @@ public class BlockStorage {
     }
 
     /**
-     * {@link #getUniqueIndex()} 를 통해 지뢰가 세팅될 인덱스 ArrayList를 받아서 들럭에 세팅합니다.
+     * {@link #getUniqueIndex()} 를 통해 지뢰가 세팅될 인덱스 ArrayList를 받아서 생성된 블럭들에 세팅합니다.
      * @param blocks 지뢰가 세팅 되기 전의 블럭들
      */
     private void setMines(ArrayList<Block> blocks) {
@@ -93,7 +91,7 @@ public class BlockStorage {
     /**
      * 지뢰가 세팅된 블럭들을 힌트 수(자신을 제외한 8방향의 지뢰 수)를 세팅하기 위해서,
      * 1차원 ArrayList를 2차원 ArrayList로 재정리 합니다.
-     * @param blocks 지뢰가 세팅된 블럭들
+     * @param blocks 지뢰가 세팅된 1차원 블럭들
      */
     private void arrangeBlocks(ArrayList<Block> blocks) {
         for (int i = 0; i < mNumberOfVerticals; i++) {
@@ -122,48 +120,42 @@ public class BlockStorage {
             int innerSize = blocks.size();
             for (int j = 0; j < innerSize; j++) {
                 if (blocks.get(j).isMine()) {
-                    if (j > 0) {
-                        blocks.get(j - 1).addHintNumber();
-                    }
-                    if (j < innerSize - 1) {
-                        blocks.get(j + 1).addHintNumber();
-                    }
+                    addHintNumberBothSide(blocks, j);
                     if (i > 0) {
                         ArrayList<Block> beforeBlocks = mBlocks.get(i - 1);
-                        if (j > 0) {
-                            beforeBlocks.get(j - 1).addHintNumber();
-                        }
                         beforeBlocks.get(j).addHintNumber();
-                        if (j < innerSize - 1) {
-                            beforeBlocks.get(j + 1).addHintNumber();
-                        }
+                        addHintNumberBothSide(beforeBlocks, j);
                     }
                     if (i < outerSize - 1) {
                         ArrayList<Block> nextBlocks = mBlocks.get(i + 1);
-                        if (j > 0) {
-                            nextBlocks.get(j - 1).addHintNumber();
-                        }
                         nextBlocks.get(j).addHintNumber();
-                        if (j < innerSize - 1) {
-                            nextBlocks.get(j + 1).addHintNumber();
-                        }
+                        addHintNumberBothSide(nextBlocks, j);
                     }
                 }
             }
         }
     }
 
-    public void clearBlocks() {
-        for (ArrayList<Block> blocks : mBlocks) {
-            blocks.clear();
+    /**
+     * {@link #setBlockHintNumber()} 의 중복되는 부분을 추출한 메소드입니다.
+     * 1차원 블럭들중에 지뢰가 있다면, 그 지뢰 양옆의 블럭에 힌트 수를 1씩 증가시켜 줍니다.
+     * 만약, 위 아랫 줄의 블럭이라면, 지뢰 인덱스 좌우의 힌트 수를 1씩 증가시켜 줍니다.
+     * @param blocks 1차원 블럭들.
+     * @param mineIndex 1차원 블럭들 중 지뢰의 인덱스.
+     */
+    private void addHintNumberBothSide(ArrayList<Block> blocks, int mineIndex) {
+        if (mineIndex > 0) {
+            blocks.get(mineIndex - 1).addHintNumber();
         }
-        mBlocks.clear();
+        if (mineIndex < blocks.size() - 1) {
+            blocks.get(mineIndex + 1).addHintNumber();
+        }
     }
 
     /**
-     * 생성자를 통해 정해진 지뢰 수를 세팅
-     * {@link #getRandomIndex()}를 이용해 유일한 인덱스 지뢰 수 만큼 세팅하고 오름 차순으로 정렬합니다.
-     * @return 블럭에 세팅될 지뢰의 인덱스 배열을 리턴합니다.
+     * 생성자를 통해 정해진 지뢰 수만큼 랜덤 인덱스를 세팅합니다.
+     * {@link #getRandomIndex()}를 이용해 유일한 인덱스를 리턴받고, 지뢰 수 만큼 세팅한 후, 오름 차순으로 정렬합니다.
+     * @return 블럭에 세팅될 지뢰의 유일한 인덱스 배열을 리턴합니다.
      */
     private ArrayList<Integer> getUniqueIndex() {
         ArrayList<Integer> uniqueIndices = new ArrayList<>();
@@ -190,7 +182,7 @@ public class BlockStorage {
 
     /**
      * 랜덤인덱스를 생성하는 메소드.
-     * @return 랜덤인덱스를 생성하고 리턴합니다.
+     * @return 랜덤 인덱스를 생성하고 리턴합니다.
      */
     private int getRandomIndex() {
         int maxIndex = mNumberOfHorizontals * mNumberOfVerticals;

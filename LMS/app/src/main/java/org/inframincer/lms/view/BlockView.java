@@ -62,10 +62,6 @@ public class BlockView extends AppCompatTextView
 
     @Override
     public boolean onLongClick(View view) {
-
-//        if (mBlock.isMine()) {
-//            mBlockClickedListener.onBlockLongClicked();
-//        }
         if (!mBlock.isDetected()) {
             indicateDetectedBlock();
             mBlock.setDetected(true);
@@ -89,27 +85,17 @@ public class BlockView extends AppCompatTextView
         setBackgroundResource(R.drawable.bg_selector_block);
         setOnClickListener(this);
         setOnLongClickListener(this);
-//        if (mBlock.isMine()) {
-            try {
-                mBlockClickedListener = (OnBlockClickedListener) mContext;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(mContext.toString()
-                        + " must implements OnBlockClickedListener");
-            }
-//        }
+        try {
+            mBlockClickedListener = (OnBlockClickedListener) mContext;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(mContext.toString()
+                    + " must implements OnBlockClickedListener");
+        }
     }
 
     private void indicateDetectedBlock() {
-//        if (!mBlock.isDetected()) {
             setBackgroundResource(R.drawable.bg_block_detected);
             setOnClickListener(null);
-//            mBlock.setDetected(true);
-//            mBlockClickedListener.onBlockLongClicked(true);
-//        } else {
-//            initializeBlock();
-//            mBlock.setDetected(false);
-//            mBlockClickedListener.onBlockLongClicked(false);
-//        }
     }
 
     private void showBlock() {
