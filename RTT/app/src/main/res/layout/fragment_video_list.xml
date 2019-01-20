@@ -8,5 +8,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".ItemsFragment"
-    tools:listitem="@layout/fragment_item"/>
+    tools:context=".VideoRecyclerViewFragment"
+    tools:listitem="@layout/fragment_video_item" />

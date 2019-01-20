@@ -1,26 +1,24 @@
 package org.inframincer.realtimetube
 
+
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-
-import org.inframincer.realtimetube.ItemsFragment.OnListFragmentInteractionListener
+import kotlinx.android.synthetic.main.fragment_video_item.view.*
+import org.inframincer.realtimetube.VideoRecyclerViewFragment.OnListFragmentInteractionListener
 import org.inframincer.realtimetube.dummy.DummyContent.DummyItem
-
-import kotlinx.android.synthetic.main.fragment_item.view.*
 
 /**
  * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyitemRecyclerViewAdapter(
+class VideoRecyclerViewAdapter(
     private val mValues: List<DummyItem>,
     private val mListener: OnListFragmentInteractionListener?
-) : RecyclerView.Adapter<MyitemRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<VideoRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
 
@@ -35,7 +33,7 @@ class MyitemRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_item, parent, false)
+            .inflate(R.layout.fragment_video_item, parent, false)
         return ViewHolder(view)
     }
 

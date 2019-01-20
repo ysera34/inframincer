@@ -16,9 +16,9 @@ import org.inframincer.realtimetube.dummy.DummyContent.DummyItem
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
- * [ItemsFragment.OnListFragmentInteractionListener] interface.
+ * [VideoRecyclerViewFragment.OnListFragmentInteractionListener] interface.
  */
-class ItemsFragment : Fragment() {
+class VideoRecyclerViewFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
@@ -37,7 +37,7 @@ class ItemsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_video_list, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -46,7 +46,7 @@ class ItemsFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyitemRecyclerViewAdapter(DummyContent.ITEMS, listener)
+                adapter = VideoRecyclerViewAdapter(DummyContent.ITEMS, listener)
             }
         }
         return view
@@ -90,7 +90,7 @@ class ItemsFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            ItemsFragment().apply {
+            VideoRecyclerViewFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
