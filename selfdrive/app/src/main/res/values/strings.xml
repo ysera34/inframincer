@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Selfdrive</string>
-    <string name="button_text_revoke">revoke</string>
-    <string name="button_text_sign_out">sign out</string>
-    <!--<string name="default_web_client_id">382538828917-f2sakl5phg4rofijdffsv8iheqj7b6kl.apps.googleusercontent.com</string>-->
-</resources>
