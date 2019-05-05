@@ -14,29 +14,29 @@ object DummyContent {
     /**
      * An array of sample (dummy) items.
      */
-    val ITEMS: MutableList<DummyItem> = ArrayList()
+    val items: MutableList<DummyItem> = ArrayList()
 
     /**
      * A map of sample (dummy) items, by ID.
      */
-    val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
+    private val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
 
-    private val COUNT = 25
+    private const val count = 25
 
     init {
         // Add some sample items.
-        for (i in 1..COUNT) {
+        for (i in 1..count) {
             addItem(createDummyItem(i))
         }
     }
 
     private fun addItem(item: DummyItem) {
-        ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+        items.add(item)
+        ITEM_MAP[item.id] = item
     }
 
     private fun createDummyItem(position: Int): DummyItem {
-        return DummyItem(position.toString(), "Item " + position, makeDetails(position))
+        return DummyItem(position.toString(), "Item $position", makeDetails(position))
     }
 
     private fun makeDetails(position: Int): String {

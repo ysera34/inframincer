@@ -5,29 +5,21 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_video_item.view.*
 import org.inframincer.realtimetube.VideoRecyclerViewFragment.OnListFragmentInteractionListener
 import org.inframincer.realtimetube.dummy.DummyContent.DummyItem
 
-/**
- * [RecyclerView.Adapter] that can display a [DummyItem] and makes a call to the
- * specified [OnListFragmentInteractionListener].
- * TODO: Replace the implementation with code for your data type.
- */
 class VideoRecyclerViewAdapter(
-    private val mValues: List<DummyItem>,
-    private val mListener: OnListFragmentInteractionListener?
+    private val values: List<DummyItem>,
+    private val listener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<VideoRecyclerViewAdapter.ViewHolder>() {
 
-    private val mOnClickListener: View.OnClickListener
+    private val onClickListener: View.OnClickListener
 
     init {
-        mOnClickListener = View.OnClickListener { v ->
+        onClickListener = View.OnClickListener { v ->
             val item = v.tag as DummyItem
-            // Notify the active callbacks interface (the activity, if the fragment is attached to
-            // one) that an item has been selected.
-            mListener?.onListFragmentInteraction(item)
+            listener?.onListFragmentInteraction(item)
         }
     }
 
@@ -38,24 +30,19 @@ class VideoRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.content
-
-        with(holder.mView) {
-            tag = item
-            setOnClickListener(mOnClickListener)
-        }
+        val item = values[position]
+        holder.view.item_number.text = item.id
+        holder.view.item_content.text = item.content
+        holder.view.tag = item
+        holder.view.setOnClickListener(onClickListener)
     }
 
-    override fun getItemCount(): Int = mValues.size
+    override fun getItemCount(): Int = values.size
 
-    inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.item_number
-        val mContentView: TextView = mView.content
+    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         override fun toString(): String {
-            return super.toString() + " '" + mContentView.text + "'"
+            return super.toString() + " '" + view.item_content.text + "'"
         }
     }
 }

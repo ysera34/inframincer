@@ -2,11 +2,11 @@ package org.inframincer.realtimetube
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 
 class VideoViewPagerAdapter(
     fragmentManager: FragmentManager
-) : FragmentPagerAdapter(fragmentManager) {
+) : FragmentStatePagerAdapter(fragmentManager) {
 
     private var fragments = mutableListOf<Fragment>()
     private var titles = mutableListOf<String>()
