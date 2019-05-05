@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_video_item.view.*
 import org.inframincer.realtimetube.VideoRecyclerViewFragment.OnListFragmentInteractionListener
 import org.inframincer.realtimetube.dummy.DummyContent.DummyItem

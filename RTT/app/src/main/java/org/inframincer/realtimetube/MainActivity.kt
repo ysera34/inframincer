@@ -19,8 +19,8 @@ class MainActivity : AppCompatActivity(), VideoRecyclerViewFragment.OnListFragme
         val adapter = VideoViewPagerAdapter(supportFragmentManager)
         listOf("title1", "title2", "title3", "title4", "title5", "title6", "title7", "title8", "title9", "title10")
             .forEachIndexed { index, title ->
-            adapter.addFragment(VideoRecyclerViewFragment.newInstance(index), title)
-        }
+                adapter.addFragment(VideoRecyclerViewFragment.newInstance(index), title)
+            }
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
     }
