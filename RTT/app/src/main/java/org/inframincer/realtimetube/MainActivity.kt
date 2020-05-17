@@ -1,10 +1,13 @@
 package org.inframincer.realtimetube
 
 import android.os.Bundle
+import android.support.v4.os.ConfigurationCompat
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import org.inframincer.realtimetube.dummy.DummyContent
+import org.inframincer.realtimetube.source.Search
+import org.inframincer.realtimetube.source.parser.Parser
 import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity(), VideoRecyclerViewFragment.OnListFragmentInteractionListener {
@@ -23,6 +26,12 @@ class MainActivity : AppCompatActivity(), VideoRecyclerViewFragment.OnListFragme
             }
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
+
+        val currentLocale = ConfigurationCompat.getLocales(resources.configuration)[0]
+        val searchProvider = Search.getSearchProvider(currentLocale)
+        val parser = Parser.getParser(searchProvider)
+        val result = parser.parse("response")
+        Log.d(TAG, result.joinToString())
     }
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
